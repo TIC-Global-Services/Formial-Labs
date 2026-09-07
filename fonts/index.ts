@@ -8,7 +8,7 @@ export const aeonik = localFont({
       style: "normal",
     },
     {
-      path: "./aeonik/Aeonik-regular.ttf",
+      path: "./aeonik/Aeonik-Regular.ttf",
       weight: "400",
       style: "normal",
     },
