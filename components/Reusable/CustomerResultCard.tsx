@@ -17,24 +17,24 @@ const CustomerResultCard = ({
   desc,
 }: CustomerResultsCardProps) => {
   return (
-    <div className="overflow-hidden rounded-3xl bg-[#00476366] p-4 space-y-4">
+    <div className="flex h-full flex-col overflow-hidden rounded-3xl bg-[#00476366] p-5 space-y-4">
       <div className="relative aspect-4/3 w-full">
         <Image
           src={image}
           alt={`${name}'s skin transformation`}
           fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 35vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover rounded-2xl"
         />
       </div>
 
-      <div className="rounded-3xl bg-white p-5 sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-          <h3 className=" text-xl font-medium text-primary sm:text-base">
+      <div className="flex flex-1 flex-col justify-center rounded-3xl bg-white p-6 sm:p-7">
+        <div className="flex flex-nowrap items-center justify-between gap-x-3">
+          <h3 className="min-w-0 truncate lg:text-xl font-medium text-primary sm:text-base">
             {name}, {location}
           </h3>
-          <span className="whitespace-nowrap text-lg font-medium text-primary sm:text-base">
-            Duration : {duration}
+          <span className="shrink-0 whitespace-nowrap text-sm lg:text-lg font-medium text-primary sm:text-base">
+            Duration: {duration}
           </span>
         </div>
         {desc && (

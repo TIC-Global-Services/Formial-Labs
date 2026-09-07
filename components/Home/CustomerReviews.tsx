@@ -220,23 +220,18 @@ const CustomerReviews = () => {
                 onScroll={handleScroll}
                 className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-2 scrollbar-none md:-mx-12 md:px-12"
               >
-                {visibleResults.map((result, index) => {
-                  const isActive = index === activeSlide;
-                  return (
-                    <motion.div
-                      key={`${result.type}-${result.name}`}
-                      ref={(el) => {
-                        slideRefs.current[index] = el;
-                      }}
-                      variants={cardVariants}
-                      className={`shrink-0 snap-center transition-[width] duration-500 ease-out ${
-                        isActive ? "w-[82%] sm:w-[62%]" : "w-[68%] sm:w-[46%]"
-                      }`}
-                    >
-                      <CustomerResultCard {...result} />
-                    </motion.div>
-                  );
-                })}
+                {visibleResults.map((result, index) => (
+                  <motion.div
+                    key={`${result.type}-${result.name}`}
+                    ref={(el) => {
+                      slideRefs.current[index] = el;
+                    }}
+                    variants={cardVariants}
+                    className="w-full shrink-0 snap-center sm:w-[62%]"
+                  >
+                    <CustomerResultCard {...result} />
+                  </motion.div>
+                ))}
               </div>
 
               <div className="mt-6 flex items-center justify-center gap-2">

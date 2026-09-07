@@ -140,7 +140,7 @@ const HowItWorks = () => {
             viewport={{ once: false, amount: 0.4 }}
             variants={headingVariants}
           >
-            <h2 className="max-w-xl text-center font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl lg:text-left">
+            <h2 className=" mx-auto lg:mx-0 max-w-xl text-center font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl lg:text-left">
               From skin analysis to your formula
             </h2>
             <p className="mx-auto mt-4 max-w-md text-center text-lg text-[#525252] sm:text-xl lg:mx-0 lg:text-left">

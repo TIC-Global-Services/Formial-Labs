@@ -168,7 +168,7 @@ const PoweredByEvidence = () => {
           <div
             ref={scrollRef}
             onScroll={handleScroll}
-            className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-2 scrollbar-none md:-mx-12 md:px-12"
+            className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden scroll-smooth px-6 pb-2 scrollbar-none md:-mx-12 md:px-12"
           >
             {cardContents.map((card, index) => {
               const isActive = index === activeSlide;

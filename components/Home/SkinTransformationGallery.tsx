@@ -30,14 +30,6 @@ const useCardsPerView = () => {
   return cardsPerView;
 };
 
-const chunk = <T,>(items: T[], size: number) => {
-  const pages: T[][] = [];
-  for (let i = 0; i < items.length; i += size) {
-    pages.push(items.slice(i, i + size));
-  }
-  return pages;
-};
-
 const headingVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
@@ -55,9 +47,10 @@ const cardVariants: Variants = {
 
 const SkinTransformationGallery = () => {
   const cardsPerView = useCardsPerView();
-  const pages = chunk(CustomerResults, cardsPerView);
+  const pageCount = Math.ceil(CustomerResults.length / cardsPerView);
   const [activePage, setActivePage] = useState(0);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const rafId = useRef<number | null>(null);
 
   useEffect(() => {
@@ -77,15 +70,26 @@ const SkinTransformationGallery = () => {
       rafId.current = null;
       const container = scrollRef.current;
       if (!container) return;
-      const page = Math.round(container.scrollLeft / container.clientWidth);
-      setActivePage(page);
+      let closest = 0;
+      let closestDist = Infinity;
+      itemRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const dist = Math.abs(el.offsetLeft - container.scrollLeft);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      setActivePage(Math.floor(closest / cardsPerView));
     });
   };
 
   const scrollToPage = (index: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
-    container.scrollTo({ left: index * container.clientWidth, behavior: "smooth" });
+    itemRefs.current[index * cardsPerView]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "start",
+      block: "nearest",
+    });
   };
 
   return (
@@ -96,7 +100,7 @@ const SkinTransformationGallery = () => {
           whileInView="show"
           viewport={{ once: false, amount: 0.4 }}
           variants={headingVariants}
-          className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center"
+          className="flex flex-col  justify-between gap-6 lg:flex-row items-center"
         >
           <h2 className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
             Skin Transformation Gallery
@@ -129,37 +133,34 @@ const SkinTransformationGallery = () => {
           <div
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-none"
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-none"
           >
-            {pages.map((page, pageIndex) => (
-              <div
-                key={pageIndex}
-                className="grid w-full shrink-0 snap-center grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+            {CustomerResults.map((result, index) => (
+              <motion.div
+                key={`${result.type}-${result.name}-${index}`}
+                ref={(el) => {
+                  itemRefs.current[index] = el;
+                }}
+                variants={cardVariants}
+                className="shrink-0 snap-start flex-[0_0_100%] sm:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)]"
               >
-                {page.map((result, index) => (
-                  <motion.div
-                    key={`${result.type}-${result.name}-${pageIndex}-${index}`}
-                    variants={cardVariants}
-                  >
-                    <CustomerResultCard {...result} desc={undefined} />
-                  </motion.div>
-                ))}
-              </div>
+                <CustomerResultCard {...result} desc={undefined} />
+              </motion.div>
             ))}
           </div>
 
-          {pages.length > 1 && (
+          {pageCount > 1 && (
             <div className="mt-8 flex items-center justify-center gap-2">
               {(() => {
                 const maxDots = 5;
                 const windowStart =
-                  pages.length <= maxDots
+                  pageCount <= maxDots
                     ? 0
                     : Math.min(
                         Math.max(activePage - Math.floor(maxDots / 2), 0),
-                        pages.length - maxDots,
+                        pageCount - maxDots,
                       );
-                const visibleCount = Math.min(maxDots, pages.length);
+                const visibleCount = Math.min(maxDots, pageCount);
 
                 return Array.from({ length: visibleCount }, (_, i) => windowStart + i).map(
                   (pageIndex) => (
