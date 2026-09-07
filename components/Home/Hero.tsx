@@ -115,16 +115,16 @@ const Hero = () => {
             <motion.div variants={itemVariants} className="flex justify-center lg:hidden">
               <Link
                 href="/solutions"
-                className="flex items-center gap-3 rounded-full border-t border-b border-white/80 bg-white/10 py-1.5 pr-6 pl-1.5 text-white backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/15"
+                className="flex items-center gap-3 rounded-full border-t border-b border-white/80 bg-white/10 py-1 pr-6 pl-1.5 text-white backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/15"
               >
                 <Image
                   src="/assets/common/button-bottle.png"
                   alt=""
                   width={80}
                   height={80}
-                  className="h-11 w-11 shrink-0 rounded-full"
+                  className="h-10 w-10 shrink-0 rounded-full"
                 />
-                <span className="font-obviously text-sm font-bold uppercase tracking-wide">
+                <span className="font-obviously text-[10px] font-bold uppercase">
                   Find Your Formulation
                 </span>
                 <ChevronsRight className="h-5 w-5 shrink-0" strokeWidth={2} />

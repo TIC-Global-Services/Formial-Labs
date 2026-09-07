@@ -26,3 +26,9 @@ body {
   overflow-x: hidden;
   width: 100%;
 }
+
+.bg-brand-gradient {
+  background: linear-gradient(to bottom, #7a949080, #ffffff);
+}
+
+
