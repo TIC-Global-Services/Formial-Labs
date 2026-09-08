@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 import ContainerLayout from "../Reusable/ContainerLayout";
 import { FooterLinks } from "./constants/links";
+
+const HIDDEN_ON = ["/free-skin-assesment"];
 
 const socialIcons: Record<string, IconType> = {
   Twitter: FaXTwitter,
@@ -37,8 +40,11 @@ const borderColor = "border-primary/20";
 const featurePolicyText = "text-primary md:text-primary/70";
 
 const Footer = () => {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
   const phone = FooterLinks.Contact.find((item) => item.name === "Phone");
+
+  if (HIDDEN_ON.includes(pathname)) return null;
 
   return (
     <footer className="bg-linear-to-b from-white to-[#B5CBC9]">

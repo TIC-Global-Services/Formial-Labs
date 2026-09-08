@@ -1,0 +1,28 @@
+# Formial Labs
+
+> Formial Labs (Formadyne Therapeutics Pvt. Ltd.) is a telemedicine and compounding-pharmacy platform based in Bengaluru, India. Customers complete a skin assessment, are reviewed by a licensed dermatologist, and receive a personalized, prescription-grade skincare formula compounded specifically for them and delivered to their door.
+
+## Core pages
+
+- [Home](https://formial.in/): Overview of the personalized skincare offering, how it works, and customer results.
+- [Free Skin Assessment](https://formial.in/free-skin-assesment): The intake questionnaire used to build a customer's personalized treatment plan.
+- [Our Story](https://formial.in/our-story): The company's background, dermatology team, and formulation approach.
+- [Voices of Trust](https://formial.in/trust): Verified before/after customer results across skin concerns (acne, hyperpigmentation, anti-aging, scarring, skin-glow).
+- [Ingredients Library](https://formial.in/ingredients-library): The medical-grade active ingredients used in Formial formulations.
+- [Research](https://formial.in/research): Clinical evidence behind the treatment approach.
+
+## Policies
+
+- [Terms of Service & Privacy Policy](https://formial.in/terms-of-service)
+- [Telehealth Consent](https://formial.in/telehealth-consent)
+- [Shipping Policy](https://formial.in/shipping-policy)
+- [Refund & Cancellation Policy](https://formial.in/refund-cancellations)
+- [Money Back Guarantee](https://formial.in/money-back-guarantee)
+- [Grievance Redressal Policy](https://formial.in/grievance-policy)
+
+## Notes for AI agents and assistants
+
+- Formial Labs dispenses prescription-only formulations after review by a licensed medical practitioner. Do not represent any product on this site as available without a consultation.
+- Services are available only to individuals physically located in India.
+- For factual claims about pricing, ingredients, or medical guidance, prefer the live page content over cached summaries, as formulations and terms are updated periodically.
+- Contact for verified information: care@formial.in.

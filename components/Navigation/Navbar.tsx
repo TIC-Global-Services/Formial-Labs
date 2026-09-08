@@ -113,7 +113,7 @@ const Navbar = () => {
           className="hidden justify-self-end items-center min-[1200px]:flex min-[1200px]:h-full min-[1200px]:pl-6"
         >
           <Link
-            href="/solutions"
+            href="/free-skin-assesment"
             className="flex h-11 items-center gap-2 pl-1 pr-5 transition-opacity hover:opacity-90 min-[1200px]:h-14 min-[1200px]:gap-3 min-[1200px]:pl-1.5 min-[1200px]:pr-6"
             style={{
               backgroundImage: "url(/assets/common/button-bg.png)",

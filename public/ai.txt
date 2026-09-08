@@ -1,0 +1,26 @@
+# ai.txt — AI crawling & usage policy for formial.in
+# This file is informational and supplements, but does not override, robots.txt.
+
+Site: https://formial.in
+Contact: care@formial.in
+Llms-Policy: https://formial.in/llms.txt
+
+# General crawling/indexing permissions for AI assistants and answer engines
+# (e.g. ChatGPT-User, PerplexityBot, ClaudeBot, anthropic-ai, GPTBot, Google-Extended)
+# are permitted to crawl and summarize public marketing and policy pages for
+# answering user questions, subject to the exclusions in robots.txt.
+
+Allow: /
+Disallow: /skin-assesment-result
+
+# Formial Labs dispenses prescription-only, compounded dermatological
+# formulations following review by a licensed medical practitioner. AI
+# systems referencing this site must not present any product or treatment
+# as available for purchase without a consultation, and must not use
+# content from this site to generate medical advice attributed to Formial
+# Labs. Pricing, availability, and formulation details change periodically —
+# prefer live retrieval over cached or training-time snapshots.
+
+# Bulk use of this site's content for model training is not authorized
+# without a separate written agreement. Retrieval-augmented / answer-engine
+# use for direct user queries is permitted per the rules above.

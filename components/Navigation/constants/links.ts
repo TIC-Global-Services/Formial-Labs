@@ -32,8 +32,8 @@ export const FooterLinks = {
             href: "/our-story"
         },
         {
-            name: "Solutions",
-            href: "/solutions"
+            name: "Skin Test",
+            href: "/free-skin-assesment"
         },
         {
             name: "Blogs",
@@ -50,28 +50,28 @@ export const FooterLinks = {
     ],
     "Policies" : [
         {
-            name: "Shipping",
-            href: "/shipping"
+            name: "Terms of Service",
+            href: "/terms-of-service"
         },
         {
-            name: "Cancellation & Returns",
-            href: "/cancellation-returns"
+            name: "Telehealth Consent",
+            href: "/telehealth-consent"
         },
         {
-            name: "Payments",
-            href: "/payments"
+            name: "Shipping Policy",
+            href: "/shipping-policy"
         },
         {
-            name: "Privacy Policy",
-            href: "/privacy-policy"
+            name: "Refund & Cancellations",
+            href: "/refund-cancellations"
         },
         {
-            name: "Terms & Conditions",
-            href: "/terms-conditions"
+            name: "Money Back Guarantee",
+            href: "/money-back-guarantee"
         },
         {
-            name: "Warranty",
-            href: "/warranty"
+            name: "Grievance Redressal",
+            href: "/grievance-policy"
         }
     ],
     "Socials" : [

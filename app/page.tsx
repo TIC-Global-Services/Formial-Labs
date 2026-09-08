@@ -5,6 +5,10 @@ import MedicalExpertise from "@/components/Home/MedicalExpertise";
 import PersonalisedExperience from "@/components/Home/PersonalisedExperience";
 import PoweredByEvidence from "@/components/Home/PoweredByEvidence";
 import SkinTransformationGallery from "@/components/Home/SkinTransformationGallery";
+import { buildMetadata } from "@/lib/seo";
+
+// No `title` passed — the homepage inherits the layout's default title as-is.
+export const metadata = buildMetadata({ path: "/" });
 
 export default function Home() {
   return (

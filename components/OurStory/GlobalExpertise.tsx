@@ -50,7 +50,7 @@ const GlobalExpertise = () => {
       ref={sectionRef}
       className="flex min-h-screen w-full items-center bg-white py-20 lg:py-32"
     >
-      <ContainerLayout className="w-full">
+      <ContainerLayout className="w-full flex items-center justify-center flex-col gap-4 text-center">
         <h2 className="font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl lg:text-7xl">
           {HEADING}
         </h2>

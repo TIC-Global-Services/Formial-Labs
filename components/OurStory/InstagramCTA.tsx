@@ -72,10 +72,10 @@ const InstagramCTA = () => {
 
           <motion.div
             variants={cardVariants}
-            className="flex flex-col items-center gap-6 sm:gap-8 lg:items-end"
+            className="flex flex-col items-center gap-6 sm:gap-12 lg:items-end"
           >
             <Image
-              src="/assets/our-story/instgram-new-wordmark.png"
+              src="/assets/our-story/instgram-wordmark.png"
               alt="Instagram"
               width={200}
               height={266}
