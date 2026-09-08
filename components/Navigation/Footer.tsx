@@ -74,7 +74,7 @@ const Footer = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
           variants={gridVariants}
-          className={`grid grid-cols-2  gap-y-10 border-t ${borderColor} ${textMain} text-center sm:text-left sm:gap-x-8 lg:grid-cols-4 lg:gap-10 py-6`}
+          className={`grid grid-cols-2  gap-y-10 border-t ${borderColor} ${textMain} text-center sm:text-left sm:gap-x-8 lg:grid-cols-4 lg:gap-6 py-6`}
         >
           {/* Features */}
           <motion.div

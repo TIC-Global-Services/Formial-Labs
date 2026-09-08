@@ -38,7 +38,7 @@ const InstagramCTA = () => {
           whileInView="show"
           viewport={{ once: false, amount: 0.3 }}
           variants={containerVariants}
-          className="flex flex-col items-center gap-10 rounded-3xl bg-gradient-to-br from-[#7A9490] to-[#E6E6E6] px-6 py-12 text-center sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:px-16 lg:text-right"
+          className="flex flex-col items-center gap-10 rounded-3xl bg-gradient-to-br from-[#7A9490] to-[#E6E6E6] px-6 py-10 text-center sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:px-10 lg:text-right"
         >
           <motion.div
             variants={containerVariants}
@@ -72,7 +72,7 @@ const InstagramCTA = () => {
 
           <motion.div
             variants={cardVariants}
-            className="flex flex-col items-center gap-6 sm:gap-12 lg:items-end"
+            className="flex flex-col items-center gap-6 sm:gap-22 lg:items-end"
           >
             <Image
               src="/assets/our-story/instgram-wordmark.png"
