@@ -95,7 +95,7 @@ const ResultFAQ = () => {
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="pb-5 text-base text-white sm:text-lg">
+                        <p className="pb-5 text-base leading-tight text-white sm:text-lg">
                           {faq.answer}
                         </p>
                       </motion.div>

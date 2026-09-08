@@ -79,7 +79,7 @@ const CustomerReviews = () => {
             opacity: isActive ? 1 : 0.45,
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="font-obviously font-bold uppercase tracking-wide text-primary"
+          className="font-obviously font-bold uppercase tracking-wide cursor-pointer text-primary"
         >
           {type}
         </motion.button>
@@ -147,7 +147,7 @@ const CustomerReviews = () => {
           </h2>
           <p className="max-w-xl text-base text-black sm:text-lg lg:text-xl leading-tight">
             Formial transforms your skincare journey with a formula custom
-            made for <span className=" text-primary">you-effective, simple, and proven to work.</span> 
+            made for <span className=" text-primary">you-effective, simple, and proven </span> to work.
           </p>
         </motion.div>
 

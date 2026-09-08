@@ -33,8 +33,8 @@ const MedicalExpertise = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: tabletRef.current,
-          start: "top 95%",
-          end: "top 15%",
+          start: "top 90%",
+          end: "top 35%",
           scrub: 0.8,
         },
       });
@@ -67,7 +67,7 @@ const MedicalExpertise = () => {
       className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-white py-16 lg:min-h-screen"
     >
       <ContainerLayout className="flex w-full flex-1 flex-col items-center justify-center">
-        <div className="mx-auto w-full perspective-[900px] sm:max-w-md md:max-w-xl lg:max-w-7xl">
+        <div className="mx-auto w-full perspective-[900px] sm:max-w-md md:max-w-xl lg:max-w-5xl xl:max-w-7xl">
           <div ref={tabletRef} className="relative w-full">
             <Ipad width={520} height={400} className="h-auto w-full" />
             <div
@@ -93,7 +93,7 @@ const MedicalExpertise = () => {
                     Medical Expertise
                   </h2>
                 </div>
-                <p className=" max-w-lg text-[2.2vw] text-white leading-tight sm:text-sm lg:text-lg">
+                <p className=" max-w-xl text-[2.2vw] text-white leading-tight sm:text-sm lg:text-lg">
                   Every formulation is guided by experienced professionals,
                   combining clinical expertise with a personalized approach to
                   your skin.

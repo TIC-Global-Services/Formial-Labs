@@ -94,7 +94,7 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
         <h2 className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
           Your skincare routine
         </h2>
-        <p className="mt-1 font-aeonik text-2xl text-primary sm:text-3xl">
+        <p className="mt-1 font-aeonik text-2xl leading-tight text-primary sm:text-3xl">
           now made to order
         </p>
 
@@ -132,14 +132,14 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
 
           <div className="mt-6 text-center">
             {concernLabels.length > 0 && (
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
+              <p className="text-xs leading-tight font-semibold uppercase tracking-widest text-white/80">
                 Curated for {concernSummary}
               </p>
             )}
             <h3 className="mt-1 font-aeonik text-2xl font-bold text-primary sm:text-3xl">
               {PLAN.name}
             </h3>
-            <p className="mt-1 text-sm text-white/90">{PLAN.tagline}</p>
+            <p className="mt-1 text-sm leading-tight text-white/90">{PLAN.tagline}</p>
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
               <span className="font-obviously text-2xl font-bold text-white">
@@ -152,7 +152,7 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
                 Save Rs. {PLAN_SAVINGS}
               </span>
             </div>
-            <p className="mt-2 text-xs text-white/70">
+            <p className="mt-2 text-xs leading-tight text-white/70">
               All Incl. of taxes. Free Shipping on Both Months
             </p>
           </div>
@@ -247,7 +247,7 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
               Purchase Now
             </Link>
 
-            <p className="mt-4 text-center text-xs font-semibold uppercase tracking-widest text-white/80">
+            <p className="mt-4 text-center text-xs leading-tight font-semibold uppercase tracking-widest text-white/80">
               3890+ Formulations Delivered In Last 12 Months
             </p>
           </div>
@@ -262,7 +262,7 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
             className="mt-6 flex items-start gap-3 rounded-2xl bg-secondary/20 p-5 text-left"
           >
             <ShieldCheck size={20} className="mt-0.5 shrink-0 text-primary" />
-            <p className="text-sm text-primary">
+            <p className="text-sm leading-tight text-primary">
               Based on your answers, one of our dermatologists will review your
               formula before it&apos;s finalized to make sure it&apos;s safe for
               you.

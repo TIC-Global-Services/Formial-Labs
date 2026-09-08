@@ -79,7 +79,7 @@ const ResultView = () => {
           <h1 className="font-aeonik text-2xl text-primary sm:text-3xl">
             We couldn&apos;t find your results.
           </h1>
-          <p className="mt-3 text-sm text-[#525252]">
+          <p className="mt-3 text-sm leading-tight text-[#525252]">
             Take the skin assessment to get your personalized formula.
           </p>
           <Link

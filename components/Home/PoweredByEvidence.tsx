@@ -106,7 +106,7 @@ const PoweredByEvidence = () => {
             Powered by Science. <br />
             Supported by Evidence.
           </h2>
-          <p className="max-w-2xl text-base leading-tight text-primary/90 sm:text-lg ">
+          <p className="max-w-2xl text-base leading-tight  sm:text-lg ">
             Every ingredient we use is carefully selected based on published
             clinical research and its proven role in addressing specific skin
             concerns. Our formulations combine scientific evidence with

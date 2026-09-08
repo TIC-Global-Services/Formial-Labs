@@ -181,7 +181,7 @@ const ResultGuarantee = () => {
                 <Star key={i} size={16} strokeWidth={0} className="fill-secondary" />
               ))}
             </div>
-            <p className="flex items-center gap-1.5 text-base text-white">
+            <p className="flex items-center gap-1.5 text-base leading-tight text-white">
               10k+ Verified Reviews on
               <Star size={14} strokeWidth={0} className="fill-[#00b67a]" />
               <span className="font-semibold text-white">Trustpilot</span>

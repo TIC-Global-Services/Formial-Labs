@@ -86,7 +86,7 @@ const ResultIngredients = () => {
           >
             What&apos;s In Your Formula?
           </motion.h2>
-          <motion.p variants={itemVariants} className="mx-auto mt-3 max-w-xl text-2xl text-white/90">
+          <motion.p variants={itemVariants} className="mx-auto mt-3 max-w-xl text-2xl leading-tight text-white/90">
             Your custom made formula may contain the following medical grade
             ingredients.
           </motion.p>
@@ -111,7 +111,7 @@ const ResultIngredients = () => {
                   <h3 className="mt-4 font-aeonik text-2xl tracking-tight font-medium text-primary">
                     {item.name}
                   </h3>
-                  <p className="mt-1 text-lg tracking-tight text-[#525252]">{item.desc}</p>
+                  <p className="mt-1 text-lg leading-tight tracking-tight text-[#525252]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -143,7 +143,7 @@ const ResultIngredients = () => {
                 <Star key={i} size={16} strokeWidth={0} className="fill-secondary" />
               ))}
             </div>
-            <p className="flex items-center gap-1.5 text-base text-white">
+            <p className="flex items-center gap-1.5 text-base leading-tight text-white">
               10k+ Verified Reviews on
               <Star size={14} strokeWidth={0} className="fill-[#00b67a]" />
               <span className="font-semibold text-white">Trustpilot</span>

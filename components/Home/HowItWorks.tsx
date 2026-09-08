@@ -180,7 +180,7 @@ const HowItWorks = () => {
                   <h3 className="mt-1 font-aeonik text-xl text-black sm:text-3xl">
                     {step.title}
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-[#525252] sm:text-xl">
+                  <p className="mt-1 text-sm leading-tight text-[#525252] sm:text-xl max-w-lg">
                     {step.desc}
                   </p>
                 </div>

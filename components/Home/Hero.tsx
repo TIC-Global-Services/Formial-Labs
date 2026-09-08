@@ -81,7 +81,7 @@ const Hero = () => {
           </motion.h1>
           <motion.p
             variants={itemVariants}
-            className="mt-6 text-base lg:text-lg text-white/80 max-w-xl leading-tight"
+            className="mt-6 text-base lg:text-xl text-white/80 max-w-xl leading-tight"
           >
             Endless brands, endless promises, endless guesswork. A formula
             crafted by dermatologists, made specifically for you.

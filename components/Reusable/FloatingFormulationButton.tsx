@@ -12,6 +12,7 @@ const FloatingFormulationButton = () => {
   const pathname = usePathname();
   const ref = useRef<HTMLAnchorElement>(null);
   const [isDark, setIsDark] = useState(true);
+  const [nearFooter, setNearFooter] = useState(false);
 
   useEffect(() => {
     const checkBackground = () => {
@@ -49,6 +50,18 @@ const FloatingFormulationButton = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setNearFooter(entry.isIntersecting),
+      { rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [pathname]);
+
   const textColor = isDark ? "text-white" : "text-primary";
 
   if (HIDDEN_ON.includes(pathname)) return null;
@@ -58,7 +71,9 @@ const FloatingFormulationButton = () => {
       ref={ref}
       href="/free-skin-assesment"
       aria-label="Find Your Formulation"
-      className={`fixed bottom-5 right-5 left-auto z-40 flex h-16 w-16 translate-x-0 items-center justify-center gap-6 overflow-hidden rounded-full bg-white/10 backdrop-blur-md border-t border-b border-white/80 shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.25)] transition-colors duration-300 ease-in-out hover:bg-white/15 min-[1200px]:bottom-6 min-[1200px]:left-1/2 min-[1200px]:right-auto min-[1200px]:h-20 min-[1200px]:w-[35%] min-[1200px]:-translate-x-1/2 min-[1200px]:justify-between min-[1200px]:pl-2 min-[1200px]:pr-8 ${textColor}`}
+      className={`fixed bottom-5 right-5 left-auto z-40 flex h-16 w-16 translate-x-0 items-center justify-center gap-6 overflow-hidden rounded-full bg-white/10 backdrop-blur-md border-t border-b border-white/80 shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.25)] transition-all duration-300 ease-in-out hover:bg-white/15 min-[1200px]:bottom-6 min-[1200px]:left-1/2 min-[1200px]:right-auto min-[1200px]:h-20 min-[1200px]:w-[35%] min-[1200px]:-translate-x-1/2 min-[1200px]:justify-between min-[1200px]:pl-2 min-[1200px]:pr-8 ${textColor} ${
+        nearFooter ? "pointer-events-none translate-y-4 opacity-0" : "opacity-100"
+      }`}
     >
       {/* compact icon-only badge — mobile & tablet */}
       <Image

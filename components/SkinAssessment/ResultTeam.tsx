@@ -49,7 +49,7 @@ const ResultTeam = () => {
             </div>
 
             <div className="mt-4 rounded-2xl bg-white p-6 sm:p-8">
-              <p className="mx-auto max-w-4xl text-base leading-relaxed text-primary sm:text-lg">
+              <p className="mx-auto max-w-4xl text-base leading-tight text-primary sm:text-lg">
                 &ldquo;We believe great skincare starts with truly
                 understanding your skin. At Formial, we look beyond the
                 surface, combining clinical expertise and evidence-based care

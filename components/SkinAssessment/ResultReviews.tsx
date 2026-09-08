@@ -5,7 +5,6 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star } from "lucide-react";
-import ContainerLayout from "@/components/Reusable/ContainerLayout";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -50,7 +49,7 @@ const ReviewCard = ({ review }: { review: Review }) => (
         <Star key={i} size={16} strokeWidth={0} className="fill-amber-400" />
       ))}
     </div>
-    <p className="mt-4 text-sm leading-relaxed text-primary sm:text-base">
+    <p className="mt-4 text-sm leading-tight text-primary sm:text-base">
       &ldquo;{review.quote}&rdquo;
     </p>
     <div className="mt-5 flex items-center gap-3">
@@ -128,7 +127,7 @@ const ResultReviews = () => {
               className="h-6 w-auto object-contain sm:h-7"
             />
             <span className="hidden h-8 w-px bg-primary/20 sm:block" />
-            <p className="text-base text-[#525252] sm:text-lg max-w-xs">
+            <p className="text-base leading-tight text-[#525252] sm:text-lg max-w-xs">
               <span className="font-bold text-primary">4.7</span> Stars from
               Verified Reviews
               <br className="sm:hidden" /> That Speak for Themselves

@@ -100,7 +100,7 @@ const SkincareComparison = () => {
         </motion.h2>
 
         {/* Desktop / tablet: two cards side by side with the bottle sketch between them */}
-        <div className="relative mt-16 hidden lg:grid lg:grid-cols-2 lg:gap-24 xl:gap-32">
+        <div className="relative mt-16 hidden lg:grid lg:grid-cols-2 lg:gap-40 xl:gap-72">
           <motion.div
             initial="hidden"
             whileInView="show"
@@ -108,7 +108,7 @@ const SkincareComparison = () => {
             variants={cardLeftVariants}
             className="rounded-3xl border border-primary/15 bg-white p-8"
           >
-            <h3 className="font-obviously text-sm font-bold tracking-wide text-black">
+            <h3 className="font-obviously text-lg font-bold  text-black">
               GENERIC SKINCARE
             </h3>
             <div className="mt-4 h-px w-full bg-primary/15" />
@@ -117,13 +117,13 @@ const SkincareComparison = () => {
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.2 }}
-              className="mt-6 space-y-5"
+              className="mt-6 space-y-5 max-w-lg"
             >
               {genericItems.map((item) => (
                 <motion.li
                   key={item}
                   variants={rowVariants}
-                  className="flex items-start gap-3 text-lg text-primary"
+                  className="flex items-start gap-3 text-2xl text-primary"
                 >
                   <PointIcon className="mt-1.5 text-primary" />
                   {item}
@@ -144,7 +144,7 @@ const SkincareComparison = () => {
               alt="Formial Labs"
               width={831}
               height={120}
-              className="h-5 w-auto object-contain"
+              className="h-8 w-auto object-contain"
             />
             <div className="mt-4 h-px w-full bg-white/40" />
             <motion.ul
@@ -152,13 +152,13 @@ const SkincareComparison = () => {
               initial="hidden"
               whileInView="show"
               viewport={{ once: false, amount: 0.2 }}
-              className="mt-6 space-y-5"
+              className="mt-6 space-y-5 max-w-lg"
             >
               {formialItems.map((item) => (
                 <motion.li
                   key={item}
                   variants={rowVariants}
-                  className="flex items-start gap-3 text-lg text-white"
+                  className="flex items-start gap-3 text-2xl text-white"
                 >
                   <PointIcon className="mt-1.5 text-white" />
                   {item}
@@ -172,7 +172,7 @@ const SkincareComparison = () => {
             whileInView="show"
             viewport={{ once: false, amount: 0.4 }}
             variants={bottleVariants}
-            className="pointer-events-none absolute top-1/2 left-1/2 z-10 w-20 -translate-x-1/2 -translate-y-1/2 xl:w-24"
+            className="pointer-events-none absolute top-1/2 left-1/2 z-10 w-36 -translate-x-1/2 -translate-y-1/2 xl:w-52"
           >
             <Image
               src="/assets/our-story/sketch-bottle.png"
