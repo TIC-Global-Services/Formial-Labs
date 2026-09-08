@@ -52,7 +52,7 @@ const TelehealthConsentPage = () => {
       <h1 className="mt-3 font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
         Telehealth Consent
       </h1>
-      <p className="mt-4 text-sm text-[#525252]">
+      <p className="mt-4 text-sm leading-relaxed text-[#525252]">
         This consent applies to all dermatologist-led consultations and
         personalized formulations offered through Formial Labs&apos; telehealth
         platform.
@@ -71,7 +71,7 @@ const TelehealthConsentPage = () => {
         ))}
       </div>
 
-      <p className="mt-10 text-xs text-[#525252]">
+      <p className="mt-10 text-xs leading-relaxed text-[#525252]">
         Questions about this consent? Reach us at{" "}
         <a href="mailto:info@formial.com" className="font-semibold text-primary underline">
           info@formial.com

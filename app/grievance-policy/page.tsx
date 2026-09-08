@@ -41,7 +41,7 @@ const GrievancePolicyPage = () => {
       <h1 className="mt-3 font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
         Grievance Redressal Policy
       </h1>
-      <p className="mt-4 text-sm text-[#525252]">
+      <p className="mt-4 text-sm leading-relaxed text-[#525252]">
         formial.in &mdash; Prescription Skincare Telemedicine Platform
         <br />
         Effective Date: December 2025 &nbsp;|&nbsp; Last Reviewed: June 2026
@@ -50,7 +50,7 @@ const GrievancePolicyPage = () => {
       <div className="mt-10 space-y-10">
         <div>
           <H2>1. Company Details</H2>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <Field label="Legal Entity Name">Formial Labs Private Limited</Field>
             <Field label="Website">www.formial.in</Field>
             <Field label="Platform Description">
@@ -146,7 +146,7 @@ const GrievancePolicyPage = () => {
             queries, complaints, or issues relating to orders,
             consultations, prescriptions, or platform experience.
           </P>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <Field label="Email">
               <a href="mailto:care@formial.in" className="font-semibold text-primary underline">
                 care@formial.in
@@ -170,7 +170,7 @@ const GrievancePolicyPage = () => {
             2020, Formial Labs has designated a Grievance Officer for this
             purpose.
           </P>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <Field label="Name">Dr. Jeet Patel</Field>
             <Field label="Designation">Grievance Officer</Field>
             <Field label="Email">
@@ -331,7 +331,7 @@ const GrievancePolicyPage = () => {
         </div>
       </div>
 
-      <div className="mt-12 border-t border-primary/10 pt-6 text-xs text-[#525252]">
+      <div className="mt-12 border-t border-primary/10 pt-6 text-xs leading-relaxed text-[#525252]">
         <p>
           Formial Labs Private Limited &nbsp;|&nbsp; www.formial.in
           &nbsp;|&nbsp; Bengaluru, India &nbsp;|&nbsp;{" "}

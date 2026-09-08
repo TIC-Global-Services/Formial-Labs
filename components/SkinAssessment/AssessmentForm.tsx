@@ -138,7 +138,7 @@ const AssessmentForm = () => {
 
   if (!started) {
     return (
-      <section className="min-h-screen  bg-brand-gradient   flex items-center justify-center">
+      <section className="min-h-screen  bg-brand-gradient   flex items-center justify-center py-16 lg:py-24">
         <AssessmentIntro
           agreed={agreed}
           onAgreedChange={setAgreed}
@@ -149,7 +149,7 @@ const AssessmentForm = () => {
   }
 
   return (
-    <section className="min-h-screen  bg-brand-gradient py-[20%] lg:py-[7%]">
+    <section className="min-h-screen  bg-brand-gradient py-[20%] lg:py-[8%]">
       <ContainerLayout px py={false} className="mx-auto max-w-4xl">
         <ProgressBar step={step} total={TOTAL_STEPS} />
 

@@ -40,7 +40,7 @@ const CustomerResultCard = ({
         {desc && (
           <>
             <div className="mt-3 h-px w-full bg-linear-to-r from-primary via-primary/10 to-primary" />
-            <p className="mt-3 text-base leading-relaxed text-primary/80 sm:text-lg">
+            <p className="mt-3 text-base leading-tight text-primary/90 sm:text-lg">
               &ldquo;{desc}&rdquo;
             </p>
           </>

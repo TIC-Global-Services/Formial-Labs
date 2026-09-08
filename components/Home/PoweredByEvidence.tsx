@@ -102,11 +102,11 @@ const PoweredByEvidence = () => {
           variants={headingVariants}
           className="mx-auto flex w-full flex-col items-center gap-4 text-center lg:flex-row lg:items-end lg:justify-between lg:text-left"
         >
-          <h2 className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl lg:text-6xl">
+          <h2 className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl ">
             Powered by Science. <br />
             Supported by Evidence.
           </h2>
-          <p className="max-w-3xl text-base text-primary/70 sm:text-lg lg:text-xl">
+          <p className="max-w-2xl text-base leading-tight text-primary/90 sm:text-lg ">
             Every ingredient we use is carefully selected based on published
             clinical research and its proven role in addressing specific skin
             concerns. Our formulations combine scientific evidence with
@@ -131,7 +131,7 @@ const PoweredByEvidence = () => {
               onHoverEnd={() => setHoveredIndex(null)}
               animate={{
                 flexGrow:
-                  hoveredIndex === null ? 1 : hoveredIndex === index ? 2.2 : 0.7,
+                  hoveredIndex === null ? 1 : hoveredIndex === index ? 1.2 : 0.7,
               }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="group relative z-0 h-[620px] w-full basis-0 overflow-hidden rounded-3xl"

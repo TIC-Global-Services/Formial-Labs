@@ -35,7 +35,7 @@ const RefundCancellationsPage = () => {
       <h1 className="mt-3 font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
         Refund &amp; Cancellation Policy
       </h1>
-      <p className="mt-4 text-sm text-[#525252]">
+      <p className="mt-4 text-sm leading-relaxed text-[#525252]">
         Formial (a brand of Formadyne Therapeutics Pvt. Ltd.)
         <br />
         Effective Date: April 2026 &nbsp;|&nbsp; Last Updated: August 2026
@@ -196,7 +196,7 @@ const RefundCancellationsPage = () => {
             order ID, a description of the issue, and supporting
             photos/videos where applicable:
           </P>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <p>
               <span className="font-semibold text-primary">Email:</span>{" "}
               <a href="mailto:care@formial.in" className="font-semibold text-primary underline">
@@ -269,7 +269,7 @@ const RefundCancellationsPage = () => {
             please reach out to our support team using the details in
             Section 5, or write to us at:
           </P>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <p className="font-semibold text-primary">
               Company: Formadyne Therapeutics Pvt. Ltd. (Formial Labs)
             </p>
@@ -284,7 +284,7 @@ const RefundCancellationsPage = () => {
         </div>
       </div>
 
-      <div className="mt-12 border-t border-primary/10 pt-6 text-xs text-[#525252]">
+      <div className="mt-12 border-t border-primary/10 pt-6 text-xs leading-relaxed text-[#525252]">
         <p>
           Formial Labs Private Limited &nbsp;|&nbsp; www.formial.in
           &nbsp;|&nbsp; Bengaluru, India &nbsp;|&nbsp;{" "}

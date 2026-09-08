@@ -127,7 +127,7 @@ const TeamSpotlight = () => {
           </h2>
 
           <div className="max-w-2xl lg:text-right">
-            <p className="text-base leading-relaxed text-black sm:text-lg">
+            <p className="text-base leading-tight text-black sm:text-lg">
               Behind our mission is a whole team of Derma-Coaches,
               dermatologists, lab experts and researchers armed with degrees and
               a slightly obsessive commitment to results.
@@ -189,7 +189,7 @@ const TeamSpotlight = () => {
                   </div>
 
                   <div className="relative w-full rounded-3xl bg-white p-6">
-                    <p className="text-sm leading-relaxed text-[#333] sm:text-base lg:text-lg">
+                    <p className="text-sm leading-tight text-[#333] sm:text-base lg:text-lg">
                       {doctor.bio}
                     </p>
                   </div>

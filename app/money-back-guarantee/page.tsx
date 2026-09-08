@@ -55,7 +55,7 @@ const MoneyBackGuaranteePage = () => {
           <h1 className="mt-3 font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
             Money Back Guarantee
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base text-[#525252]">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-[#525252]">
             We believe in the power of personalized dermatology. That&apos;s
             why every full-price 3-month treatment plan at Formial Labs
             comes with a simple promise: if you don&apos;t see visible
@@ -73,11 +73,11 @@ const MoneyBackGuaranteePage = () => {
                     {i + 1}
                   </span>
                   <p className="mt-4 text-sm font-semibold text-primary">{step.title}</p>
-                  {step.desc && <p className="mt-1 text-sm text-[#525252]">{step.desc}</p>}
+                  {step.desc && <p className="mt-1 text-sm leading-relaxed text-[#525252]">{step.desc}</p>}
                 </div>
               ))}
             </div>
-            <p className="mt-6 text-center text-sm text-primary/80">
+            <p className="mt-6 text-center text-sm leading-relaxed text-primary/80">
               Our clinical team will carefully review your journey and, if
               all conditions are met, your refund will be processed.
             </p>
@@ -85,7 +85,7 @@ const MoneyBackGuaranteePage = () => {
 
           <div className="mt-10">
             <h3 className="font-aeonik text-lg text-primary">A Fair Promise</h3>
-            <p className="mx-auto mt-2 max-w-xl text-sm text-[#525252]">
+            <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-[#525252]">
               This guarantee is for customers who give their treatment an
               honest try. If you&apos;ve been consistent and fully engaged
               but still don&apos;t see results, we&apos;ll stand by you
@@ -216,7 +216,7 @@ const MoneyBackGuaranteePage = () => {
           </div>
         </div>
 
-        <p className="mt-10 text-xs text-[#525252]">
+        <p className="mt-10 text-xs leading-relaxed text-[#525252]">
           Questions about this guarantee? Reach us at{" "}
           <a href="mailto:help@formial.in" className="font-semibold text-primary underline">
             help@formial.in

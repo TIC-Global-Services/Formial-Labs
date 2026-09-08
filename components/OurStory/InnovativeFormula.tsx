@@ -44,15 +44,20 @@ const glassClass =
 const FloatCards = [
   {
     content: "The strengths are picked to work for you alone.",
-    desktop: "left-[14%] top-[26%] w-[26%]",
+    desktop: "left-[18%] top-[26%] w-[26%]",
+    // Left-positioned card — text points inward, toward the center image.
+    align: "text-right",
   },
   {
     content: "The actives are chosen for your skin now.",
     desktop: "left-[73%] top-[30%] w-[27%]",
+    // Right-positioned card — text points inward, toward the center image.
+    align: "text-left",
   },
   {
     content: "Built on our proprietary, patent-pending base.",
-    desktop: "left-0 top-[60%] w-[33%]",
+    desktop: "left-[10%] top-[60%] w-[33%]",
+    align: "text-right",
   },
 ];
 
@@ -66,16 +71,16 @@ const InnovativeFormula = () => {
           whileInView="show"
           viewport={{ once: false, amount: 0.4 }}
           variants={headingVariants}
-          className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:text-left"
+          className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-end lg:justify-between lg:gap-10 lg:text-left"
         >
           <h2 className="max-w-xl font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl">
             Innovative formula, designed for you
           </h2>
-          <div className="max-w-md">
+          <div className="max-w-xl">
             <p className="text-lg font-medium text-primary sm:text-xl">
               Your Details. Your Seasons. Your Life.
             </p>
-            <p className="mt-2 text-base text-[#333] sm:text-lg">
+            <p className="mt-2 text-base text-[#333] sm:text-lg leading-tight">
               It all adds up to create a prescription-grade formula. One
               that&rsquo;s backed by evidence-based, potent ingredients,
               designed to be accessible to you.
@@ -122,7 +127,7 @@ const InnovativeFormula = () => {
                     ease: "easeInOut",
                     delay: index * 0.4,
                   }}
-                  className={`rounded-[2rem] px-6 py-4 text-center text-lg leading-snug text-primary ${glassClass}`}
+                  className={`rounded-[2rem] px-6 py-4 max-w-[250px] ${card.align} text-lg leading-snug text-primary ${glassClass}`}
                 >
                   {card.content}
                 </motion.div>

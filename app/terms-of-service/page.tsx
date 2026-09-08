@@ -41,7 +41,7 @@ const TermsConditionsPage = () => {
       <h1 className="mt-3 font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl">
         Terms of Service
       </h1>
-      <p className="mt-4 text-sm text-[#525252]">
+      <p className="mt-4 text-sm leading-relaxed text-[#525252]">
         Effective Date: April 1, 2026 &nbsp;|&nbsp; Last Updated: June 10, 2026
         <br />
         Applicable to: Formial.in website and all telemedicine / prescription
@@ -713,7 +713,7 @@ const TermsConditionsPage = () => {
             Code) Rules, 2021, and the DPDPA 2023, Formial has appointed a
             Grievance Officer:
           </P>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <p>
               <span className="font-semibold text-primary">Grievance Officer:</span> Dr Jeet Patel
             </p>
@@ -737,7 +737,7 @@ const TermsConditionsPage = () => {
         <div>
           <H2>22. Contact Us</H2>
           <P>For general inquiries, support, or feedback:</P>
-          <div className="mt-3 space-y-1 text-sm text-[#525252]">
+          <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#525252]">
             <p className="font-semibold text-primary">FORMADYNE THERAPEUTICS PRIVATE LIMITED</p>
             <p>Website: formial.in</p>
             <p>
@@ -757,7 +757,7 @@ const TermsConditionsPage = () => {
         </div>
       </div>
 
-      <div className="mt-12 border-t border-primary/10 pt-6 text-xs text-[#525252]">
+      <div className="mt-12 border-t border-primary/10 pt-6 text-xs leading-relaxed text-[#525252]">
         <p>&copy; 2026 FORMADYNE THERAPEUTICS PRIVATE LIMITED. All rights reserved.</p>
         <p className="mt-1">
           This document was last reviewed on 10 June 2026. Formial reserves the

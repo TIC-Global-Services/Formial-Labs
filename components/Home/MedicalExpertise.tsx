@@ -93,7 +93,7 @@ const MedicalExpertise = () => {
                     Medical Expertise
                   </h2>
                 </div>
-                <p className=" max-w-lg text-[2.2vw] text-white sm:text-sm lg:text-lg">
+                <p className=" max-w-lg text-[2.2vw] text-white leading-tight sm:text-sm lg:text-lg">
                   Every formulation is guided by experienced professionals,
                   combining clinical expertise with a personalized approach to
                   your skin.

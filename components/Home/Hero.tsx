@@ -1,10 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ChevronsRight, Star } from "lucide-react";
 import ContainerLayout from "../Reusable/ContainerLayout";
+
+const STATS = [
+  { value: "50K+", label: "Personalized Formulations" },
+  { value: "95%", label: "Customer Satisfaction" },
+  { value: "24/7", label: "Dermatologist Support" },
+  { value: "100%", label: "Prescription-Based Care" },
+];
+
+const STAT_ROTATE_INTERVAL = 3000;
 
 const containerVariants: Variants = {
   hidden: {},
@@ -23,6 +33,15 @@ const itemVariants: Variants = {
 };
 
 const Hero = () => {
+  const [statIndex, setStatIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setStatIndex((prev) => (prev + 1) % STATS.length);
+    }, STAT_ROTATE_INTERVAL);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section
       data-theme="dark"
@@ -54,7 +73,7 @@ const Hero = () => {
         >
           <motion.h1
             variants={itemVariants}
-            className="font-aeonik text-4xl leading-tighter tracking-tighter text-white sm:text-6xl  lg:text-[84px]"
+            className="font-aeonik text-4xl  tracking-tighter text-white sm:text-6xl  lg:text-[84px]"
           >
             Your skincare &hellip;
             <br />
@@ -62,7 +81,7 @@ const Hero = () => {
           </motion.h1>
           <motion.p
             variants={itemVariants}
-            className="mt-6 text-base text-white/80"
+            className="mt-6 text-base lg:text-lg text-white/80 max-w-xl leading-tight"
           >
             Endless brands, endless promises, endless guesswork. A formula
             crafted by dermatologists, made specifically for you.
@@ -82,7 +101,7 @@ const Hero = () => {
                 className="h-6 w-auto"
               />
               <span className="h-10 w-px bg-white/30" />
-              <p className="text-sm text-white/80">
+              <p className="text-base text-white/80">
                 4.6 Stars from Verified Reviews
                 <br />
                 That Speak for Themselves
@@ -104,7 +123,7 @@ const Hero = () => {
                   />
                 ))}
               </div>
-              <p className="flex items-center gap-1.5 text-sm text-white/80">
+              <p className="flex items-center gap-1.5 text-base text-white/80">
                 10k+ Verified Reviews on
                 <Star size={14} strokeWidth={0} className="fill-[#00b67a]" />
                 <span className="font-semibold text-white">Trustpilot</span>
@@ -133,14 +152,23 @@ const Hero = () => {
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col items-center gap-0.5 lg:flex-row lg:items-center lg:gap-4"
+              className="flex flex-col items-center gap-0.5 overflow-hidden lg:flex-row lg:items-center lg:gap-4"
             >
-              <span className="font-obviously text-4xl text-secondary font-bold lg:text-3xl">
-                50K+
-              </span>
-              <p className="text-sm text-white/80">
-                Personalized Formulations
-              </p>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={statIndex}
+                  initial={{ y: 24, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -24, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col items-center gap-0.5 lg:flex-row lg:items-center lg:gap-4"
+                >
+                  <span className="font-obviously text-4xl text-secondary font-bold lg:text-3xl">
+                    {STATS[statIndex].value}
+                  </span>
+                  <p className="text-lg text-white/80">{STATS[statIndex].label}</p>
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
           </div>
         </motion.div>

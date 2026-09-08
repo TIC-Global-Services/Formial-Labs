@@ -57,7 +57,7 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="absolute top-[55%] right-8 z-20 max-w-xs text-center text-base leading-relaxed text-primary xl:right-16 xl:max-w-sm xl:text-lg 2xl:text-xl"
+          className="absolute top-[55%] text-center lg:text-right right-8 z-20 max-w-xs  text-base  text-primary xl:right-16 xl:max-w-lg xl:text-lg 2xl:text-xl leading-tight"
         >
           {COPY}
         </motion.p>
@@ -80,7 +80,7 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="max-w-md px-6 text-base leading-relaxed text-primary sm:text-lg"
+          className="max-w-xl px-6 text-base   text-primary sm:text-lg"
         >
           {COPY}
         </motion.p>

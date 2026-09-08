@@ -145,9 +145,9 @@ const CustomerReviews = () => {
           <h2 className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl lg:text-6xl">
             Real stories. <br /> Real transformations.
           </h2>
-          <p className="max-w-md text-base text-primary/70 sm:text-lg lg:text-xl">
+          <p className="max-w-xl text-base text-black sm:text-lg lg:text-xl leading-tight">
             Formial transforms your skincare journey with a formula custom
-            made for you-effective, simple, and proven to work.
+            made for <span className=" text-primary">you-effective, simple, and proven to work.</span> 
           </p>
         </motion.div>
 

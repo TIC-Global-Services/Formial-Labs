@@ -16,7 +16,7 @@ const ResultHero = ({
   onShare: () => void;
 }) => {
   return (
-    <section className=" min-h-screen bg-brand-gradient flex items-center justify-center">
+    <section className=" min-h-screen bg-brand-gradient flex items-center justify-center py-16 lg:py-24">
       <ContainerLayout px py={false} className="mx-auto max-w-4xl text-center">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
