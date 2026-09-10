@@ -71,7 +71,7 @@ const Hero = () => {
       >
         <motion.h1
           variants={itemVariants}
-          className="px-6 font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl pt-10"
+          className="px-6 font-aeonik text-5xl leading-tight tracking-tighter text-primary sm:text-6xl pt-10"
         >
           We See What
           <br />
@@ -80,7 +80,7 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="max-w-xl px-6 text-base   text-primary sm:text-lg"
+          className="max-w-xl px-6 text-base  leading-tight  text-primary sm:text-lg"
         >
           {COPY}
         </motion.p>
@@ -102,7 +102,7 @@ const Hero = () => {
 
         <motion.div variants={itemVariants} className="relative z-10 mt-auto px-6">
           <Link
-            href="/solutions"
+            href="/free-skin-assesment"
             className="flex items-center gap-3 rounded-full border-t border-b border-white/80 bg-white/40 py-1.5 pr-6 pl-1.5 text-primary backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/60"
           >
             <Image

@@ -12,7 +12,7 @@ const StepHeading = ({
   return (
     <div className="relative text-center">
       {eyebrow && (
-        <p className="mb-2 font-obviously text-xs font-medium uppercase  text-primary/80">
+        <p className="mb-2 font-obviously text-xs font-medium uppercase   text-primary/80">
           {eyebrow}
         </p>
       )}
@@ -20,7 +20,7 @@ const StepHeading = ({
         {title}
       </h1>
       {subtitle && (
-        <p className="mx-auto mt-3 max-w-md text-lg text-[#525252]">
+        <p className="mx-auto mt-3 max-w-md text-lg leading-tight text-[#525252]">
           {subtitle}
           {required && " *"}
         </p>

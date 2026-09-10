@@ -159,7 +159,7 @@ const ResultGuarantee = () => {
 
           <motion.p
             variants={itemVariants}
-            className="mx-auto mt-8 max-w-4xl text-xl text-white"
+            className="mx-auto mt-8 max-w-4xl md:text-xl leading-tight text-white"
           >
             We&apos;re committed to personalised, evidence-based skincare. If
             your skin isn&apos;t responding, we&apos;ll reformulate at no extra

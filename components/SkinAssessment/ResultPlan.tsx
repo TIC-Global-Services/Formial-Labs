@@ -139,10 +139,10 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
             <h3 className="mt-1 font-aeonik text-2xl font-bold text-primary sm:text-3xl">
               {PLAN.name}
             </h3>
-            <p className="mt-1 text-sm leading-tight text-white/90">{PLAN.tagline}</p>
+            <p className="mt-1 leading-tight text-white/90">{PLAN.tagline}</p>
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-              <span className="font-obviously text-2xl font-bold text-white">
+              <span className="font-obviously text-3xl font-bold text-white">
                 Rs.{PLAN.price}
               </span>
               <span className="text-base text-white/60 line-through">
@@ -152,7 +152,7 @@ const ResultPlan = ({ answers }: { answers: AssessmentAnswers }) => {
                 Save Rs. {PLAN_SAVINGS}
               </span>
             </div>
-            <p className="mt-2 text-xs leading-tight text-white/70">
+            <p className="mt-2  leading-tight text-white/70">
               All Incl. of taxes. Free Shipping on Both Months
             </p>
           </div>

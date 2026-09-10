@@ -86,7 +86,7 @@ const ResultIngredients = () => {
           >
             What&apos;s In Your Formula?
           </motion.h2>
-          <motion.p variants={itemVariants} className="mx-auto mt-3 max-w-xl text-2xl leading-tight text-white/90">
+          <motion.p variants={itemVariants} className="mx-auto mt-3 max-w-xl text-lg md:text-2xl leading-tight text-white/90">
             Your custom made formula may contain the following medical grade
             ingredients.
           </motion.p>
@@ -108,10 +108,10 @@ const ResultIngredients = () => {
                   <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/40">
                     <Droplet size={22} strokeWidth={1.75} className="text-primary" />
                   </span>
-                  <h3 className="mt-4 font-aeonik text-2xl tracking-tight font-medium text-primary">
+                  <h3 className="mt-4 font-aeonik text-xl md:text-2xl tracking-tight font-medium text-primary">
                     {item.name}
                   </h3>
-                  <p className="mt-1 text-lg leading-tight tracking-tight text-[#525252]">{item.desc}</p>
+                  <p className="mt-1 md:text-lg leading-tight tracking-tight text-[#525252]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -121,7 +121,7 @@ const ResultIngredients = () => {
                 <span
                   key={`${item.name}-dot`}
                   className={`h-2 rounded-full bg-primary transition-all duration-300 ${
-                    i === activeCard ? "w-6 opacity-100" : "w-2 opacity-30"
+                    i === activeCard ? "w-8 opacity-100" : "w-4 opacity-30"
                   }`}
                 />
               ))}

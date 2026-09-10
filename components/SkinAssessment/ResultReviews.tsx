@@ -43,7 +43,7 @@ const RIGHT_REVIEWS: Review[] = [
 ];
 
 const ReviewCard = ({ review }: { review: Review }) => (
-  <div className="w-[280px] rounded-2xl border-t border-b border-white/80 bg-white/40 p-6 shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.1)] backdrop-blur-md sm:w-[340px]">
+  <div className="w-[70vw] rounded-2xl border-t border-b border-white/80 bg-white/40 p-6 shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.1)] backdrop-blur-md sm:w-[340px]">
     <div className="flex items-center gap-1">
       {Array.from({ length: 5 }, (_, i) => (
         <Star key={i} size={16} strokeWidth={0} className="fill-amber-400" />

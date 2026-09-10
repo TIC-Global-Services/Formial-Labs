@@ -30,7 +30,7 @@ const AssessmentNav = ({
         type="button"
         onClick={onNext}
         disabled={nextDisabled}
-        className="flex cursor-pointer items-center gap-2 rounded-full border-t border-b border-white/80 bg-white/20 px-8 py-4 font-obviously text-sm font-bold uppercase tracking-widest text-primary shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.1)] backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30"
+        className="flex cursor-pointer items-center gap-2 rounded-full border-t border-b border-white/80 bg-white/20 px-8 py-4 font-obviously text-[12px] font-bold uppercase tracking-widest text-primary shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.1)] backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-30"
       >
         {nextLabel}
         <ChevronsRight size={18} strokeWidth={2} />

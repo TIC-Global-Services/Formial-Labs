@@ -133,7 +133,7 @@ const Hero = () => {
             {/* Mobile / tablet: CTA */}
             <motion.div variants={itemVariants} className="flex justify-center lg:hidden">
               <Link
-                href="/solutions"
+                href="/free-skin-assesment"
                 className="flex items-center gap-3 rounded-full border-t border-b border-white/80 bg-white/10 py-1 pr-6 pl-1.5 text-white backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/15"
               >
                 <Image

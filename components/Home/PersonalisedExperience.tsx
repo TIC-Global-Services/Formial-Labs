@@ -176,7 +176,7 @@ const PersonalisedExperience = () => {
               Formial Labs
             </p>
             <div className="w-px shrink-0" />
-            <p className="flex-1 text-center font-obviously text-sm font-bold uppercase tracking-widest text-[#525252]">
+            <p className="flex-1 text-center font-obviously text-sm font-bold uppercase tracking-widest text-black">
               Other Brands
             </p>
           </motion.div>

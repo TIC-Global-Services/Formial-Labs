@@ -161,7 +161,7 @@ const HowItWorks = () => {
               <motion.div
                 key={step.number}
                 variants={stepItemVariants}
-                className={`flex gap-5 py-6 sm:gap-6 ${
+                className={`flex flex-col items-center gap-5 py-6 text-center sm:flex-row sm:items-start sm:gap-6 sm:text-left ${
                   index !== steps.length - 1 ? "border-b border-primary/10" : ""
                 }`}
               >
@@ -195,7 +195,7 @@ const HowItWorks = () => {
         whileInView="show"
         viewport={{ once: false, amount: 0.2 }}
         variants={imageVariants}
-        className="relative h-[380px] w-full sm:h-[480px] lg:h-auto lg:w-1/2"
+        className="relative order-first h-[380px] w-full sm:h-[480px] lg:order-none lg:h-auto lg:w-1/2"
       >
         <Image
           src="/assets/home/blue_leaf.png"

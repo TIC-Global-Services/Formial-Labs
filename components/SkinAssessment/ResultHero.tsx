@@ -31,7 +31,7 @@ const ResultHero = ({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="mx-auto mt-4 max-w-xl text-base leading-tight text-[#525252]"
+          className="mx-auto mt-4 max-w-2xl text-sm md:text-base leading-tight text-black"
         >
           Thanks for sharing about your skin. You&apos;re almost there! Just 1&ndash;2
           more steps for our dermatologist to review and recommend the right
