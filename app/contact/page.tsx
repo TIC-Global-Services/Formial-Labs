@@ -1,4 +1,4 @@
-import UnderConstruction from "@/components/Reusable/UnderConstruction";
+import ContactSection from "@/components/Contact/ContactSection";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -8,5 +8,5 @@ export const metadata = buildMetadata({
 });
 
 export default function ContactPage() {
-  return <UnderConstruction title="Contact Us" />;
+  return <ContactSection />;
 }
