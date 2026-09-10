@@ -1,4 +1,6 @@
-import UnderConstruction from "@/components/Reusable/UnderConstruction";
+import Hero from "@/components/Blogs/Hero";
+import Explore from "@/components/Blogs/Explore";
+import { BlogsSearchProvider } from "@/components/Blogs/SearchProvider";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -8,5 +10,10 @@ export const metadata = buildMetadata({
 });
 
 export default function BlogsPage() {
-  return <UnderConstruction title="Blogs" />;
+  return (
+    <BlogsSearchProvider>
+      <Hero />
+      <Explore />
+    </BlogsSearchProvider>
+  );
 }
