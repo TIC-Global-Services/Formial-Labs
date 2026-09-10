@@ -1,4 +1,5 @@
 import TrustStories from "@/components/Trust/TrustStories";
+import SkinStories from "@/components/Trust/SkinStories";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -9,5 +10,10 @@ export const metadata = buildMetadata({
 });
 
 export default function VoicesOfTrustPage() {
-  return <TrustStories />;
+  return (
+    <>
+      <TrustStories />
+      <SkinStories />
+    </>
+  );
 }
