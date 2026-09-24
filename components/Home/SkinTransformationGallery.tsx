@@ -116,7 +116,7 @@ const SkinTransformationGallery = () => {
             />
             <div className="h-9 w-px bg-primary/20" />
             <p className="text-sm leading-snug text-black">
-              4.6 Stars from Verified Reviews
+              4.7 Stars from Verified Reviews
               <br />
               That Speak for Themselves
             </p>

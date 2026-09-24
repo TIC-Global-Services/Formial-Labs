@@ -58,7 +58,7 @@ const Hero = () => {
           alt="Woman applying personalized skincare"
           fill
           priority
-          className="object-cover"
+          className=" object-[90_20] object-cover  "
         />
       </motion.div>
 
@@ -69,7 +69,7 @@ const Hero = () => {
           initial="hidden"
           animate="show"
           variants={containerVariants}
-          className="mx-auto max-w-md text-center lg:mx-0 lg:max-w-3xl lg:text-left"
+          className="mx-auto max-w-md  lg:mx-0 lg:max-w-3xl lg:text-left"
         >
           <motion.h1
             variants={itemVariants}
@@ -87,7 +87,7 @@ const Hero = () => {
             crafted by dermatologists, made specifically for you.
           </motion.p>
 
-          <div className="mt-10 space-y-6">
+          <div className="mt-4 space-y-4 lg:space-y-6 lg:mt-10">
             {/* Desktop: logo + divider + caption */}
             <motion.div
               variants={itemVariants}
@@ -102,7 +102,7 @@ const Hero = () => {
               />
               <span className="h-10 w-px bg-white/30" />
               <p className="text-base text-white/80">
-                4.6 Stars from Verified Reviews
+                4.7 Stars from Verified Reviews
                 <br />
                 That Speak for Themselves
               </p>
@@ -111,48 +111,43 @@ const Hero = () => {
             {/* Mobile / tablet: star rating + inline Trustpilot mention */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col items-center gap-2 text-center lg:hidden"
+              className="flex flex-col items-start gap-2  lg:hidden"
             >
-              <div className="flex items-center gap-1">
+              <div className="flex items-start gap-1">
+                <svg width="0" height="0" className="absolute">
+                  <defs>
+                    <linearGradient id="star-half-fill">
+                      <stop offset="60%" stopColor="var(--color-secondary)" />
+                      <stop offset="60%" stopColor="rgba(255,255,255,0.3)" />
+                    </linearGradient>
+                  </defs>
+                </svg>
                 {Array.from({ length: 5 }, (_, i) => (
                   <Star
                     key={i}
                     size={18}
                     strokeWidth={0}
-                    className={i < 4 ? "fill-secondary" : "fill-white/30"}
+                    fill={
+                      i < 4 ? "var(--color-secondary)" : "url(#star-half-fill)"
+                    }
                   />
                 ))}
               </div>
-              <p className="flex items-center gap-1.5 text-base text-white/80">
-                10k+ Verified Reviews on
-                <Star size={14} strokeWidth={0} className="fill-[#00b67a]" />
-                <span className="font-semibold text-white">Trustpilot</span>
-              </p>
-            </motion.div>
-
-            {/* Mobile / tablet: CTA */}
-            <motion.div variants={itemVariants} className="flex justify-center lg:hidden">
-              <Link
-                href="/free-skin-assesment"
-                className="flex items-center gap-3 rounded-full border-t border-b border-white/80 bg-white/10 py-1 pr-6 pl-1.5 text-white backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/15"
-              >
+              <p className="flex items-center gap-1.5 text-sm text-white/80">
+                4.7 Stars from Verified Reviews on
                 <Image
-                  src="/assets/common/button-bottle.png"
-                  alt=""
-                  width={80}
-                  height={80}
-                  className="h-10 w-10 shrink-0 rounded-full"
+                  src="/assets/common/trustpilot.png"
+                  alt="Trustpilot"
+                  width={420}
+                  height={102}
+                  className="h-5 w-auto"
                 />
-                <span className="font-obviously text-[10px] font-bold uppercase">
-                  Find Your Formulation
-                </span>
-                <ChevronsRight className="h-5 w-5 shrink-0" strokeWidth={2} />
-              </Link>
+              </p>
             </motion.div>
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col items-center gap-0.5 overflow-hidden lg:flex-row lg:items-center lg:gap-4"
+              className="flex flex-col items-start gap-0.5 overflow-hidden lg:flex-row lg:items-center lg:gap-4"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -161,14 +156,39 @@ const Hero = () => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -24, opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col items-center gap-0.5 lg:flex-row lg:items-center lg:gap-4"
+                  className="flex flex-col items-start gap-0.5 lg:flex-row lg:items-center lg:gap-4"
                 >
                   <span className="font-obviously text-4xl text-secondary font-bold lg:text-3xl">
                     {STATS[statIndex].value}
                   </span>
-                  <p className="text-lg text-white/80">{STATS[statIndex].label}</p>
+                  <p className="text-lg text-white/80">
+                    {STATS[statIndex].label}
+                  </p>
                 </motion.div>
               </AnimatePresence>
+            </motion.div>
+
+            {/* Mobile / tablet: CTA */}
+            <motion.div
+              variants={itemVariants}
+              className="flex justify-start lg:hidden"
+            >
+              <Link
+                href="/free-skin-assesment"
+                className="flex items-center gap-3 rounded-full border-t border-b border-white/80 bg-white/10 py-0.5 pr-4 pl-1 text-white backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/15"
+              >
+                <Image
+                  src="/assets/common/button-bottle.png"
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="h-9 w-9 shrink-0 rounded-full"
+                />
+                <span className="font-obviously text-[10px] font-bold uppercase">
+                  Find Your Formulation
+                </span>
+                <ChevronsRight className="h-5 w-5 shrink-0" strokeWidth={2} />
+              </Link>
             </motion.div>
           </div>
         </motion.div>

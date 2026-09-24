@@ -10,8 +10,9 @@
   --color-foreground: var(--foreground);
   --font-aeonik: var(--font-aeonik);
   --font-obviously: var(--font-obviously);
+  --font-minion-pro: var(--font-minion-pro);
   --color-primary: #004763;
-  --color-secondary: #B5E7FF;
+  --color-secondary: #b5e7ff;
 }
 
 html {
@@ -24,6 +25,7 @@ body {
   font-family: var(--font-aeonik), Arial, Helvetica, sans-serif;
   letter-spacing: -0.02rem;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .bg-brand-gradient {
@@ -106,5 +108,3 @@ body {
 .article-body strong {
   color: var(--color-primary);
 }
-
-

@@ -18,20 +18,20 @@ if (typeof window !== "undefined") {
 const steps = [
   {
     number: "01",
-    title: "Take The Questionnaire",
-    desc: "Answer a few simple questions about your skin, concerns, and goals.",
+    title: "Complete an online assessment",
+    desc: "This will help our dermatology experts prescribe the right formula for your skin.",
     Icon: QuestionnaireIcon,
   },
   {
     number: "02",
-    title: "Get Your Formula",
-    desc: "We use your profile to select ingredients and create a personalised skincare formula.",
+    title: "Apply your formula once a night",
+    desc: "We will advise you about a simple and effective skincare routine.",
     Icon: FormulaIcon,
   },
   {
     number: "03",
-    title: "Start Your Routine",
-    desc: "Your personalised formula is prepared and delivered, ready to become part of your daily routine.",
+    title: "Check in throughout your journey",
+    desc: "We'll monitor your progress and adjust your treatment as needed.",
     Icon: RoutineIcon,
   },
 ];

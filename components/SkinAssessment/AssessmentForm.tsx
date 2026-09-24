@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
@@ -17,7 +17,6 @@ import {
   GENDER_OPTIONS,
   HEAR_ABOUT_OPTIONS,
   labelFor,
-  summarizeList,
   OTHER_CONCERN_OPTIONS,
   PRODUCTS_USED_OPTIONS,
   SKIN_TYPE_OPTIONS,
@@ -47,16 +46,26 @@ const AssessmentForm = () => {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<AssessmentAnswers>(emptyAnswers);
 
-  const update = <K extends keyof AssessmentAnswers>(key: K, value: AssessmentAnswers[K]) =>
-    setAnswers((prev) => ({ ...prev, [key]: value }));
+  const update = <K extends keyof AssessmentAnswers>(
+    key: K,
+    value: AssessmentAnswers[K],
+  ) => setAnswers((prev) => ({ ...prev, [key]: value }));
 
-  const toggleInList = (key: "concerns" | "otherConcerns" | "productsUsed", value: string) => {
+  const firstNameOnly = answers.firstName.trim().split(/\s+/)[0] ?? "";
+
+  const toggleInList = (
+    key: "concerns" | "otherConcerns" | "productsUsed",
+    value: string,
+  ) => {
     setAnswers((prev) => {
       const current = prev[key];
 
       if (key === "productsUsed") {
         if (value === "none") {
-          return { ...prev, productsUsed: current.includes("none") ? [] : ["none"] };
+          return {
+            ...prev,
+            productsUsed: current.includes("none") ? [] : ["none"],
+          };
         }
         const withoutNone = current.filter((v) => v !== "none");
         const next = withoutNone.includes(value)
@@ -73,16 +82,21 @@ const AssessmentForm = () => {
   };
 
   const otherConcernOptions = useMemo(
-    () => OTHER_CONCERN_OPTIONS.filter((o) => !answers.concerns.includes(o.value)),
-    [answers.concerns]
+    () =>
+      OTHER_CONCERN_OPTIONS.filter((o) => !answers.concerns.includes(o.value)),
+    [answers.concerns],
   );
 
-  const selectedConcernLabels = answers.concerns.map((v) => labelFor(CONCERN_OPTIONS, v));
-  const allConcernLabels = [...answers.concerns, ...answers.otherConcerns].map((v) =>
-    labelFor([...CONCERN_OPTIONS, ...OTHER_CONCERN_OPTIONS], v)
+  const selectedConcernLabels = answers.concerns.map((v) =>
+    labelFor(CONCERN_OPTIONS, v),
+  );
+  const allConcernLabels = [...answers.concerns, ...answers.otherConcerns].map(
+    (v) => labelFor([...CONCERN_OPTIONS, ...OTHER_CONCERN_OPTIONS], v),
   );
   const primaryConcernLabel = allConcernLabels[0] ?? "your skin";
-  const skinTypeLabel = answers.skinType ? labelFor(SKIN_TYPE_OPTIONS, answers.skinType) : "";
+  const skinTypeLabel = answers.skinType
+    ? labelFor(SKIN_TYPE_OPTIONS, answers.skinType)
+    : "";
 
   const canContinue = (() => {
     switch (step) {
@@ -101,7 +115,9 @@ const AssessmentForm = () => {
       case 6:
         return (
           answers.onMedication !== null &&
+          (answers.onMedication !== "yes" || answers.medicationDetails.trim() !== "") &&
           answers.hasAllergy !== null &&
+          (answers.hasAllergy !== "yes" || answers.allergyDetails.trim() !== "") &&
           answers.pregnantOrBreastfeeding !== null
         );
       case 7:
@@ -126,7 +142,7 @@ const AssessmentForm = () => {
       sessionStorage.setItem("formial_assessment", JSON.stringify(answers));
       // Only non-sensitive fields go in the URL — this is what makes the
       // result page shareable without leaking phone/email/medical answers.
-      const params = new URLSearchParams({ name: answers.firstName });
+      const params = new URLSearchParams({ name: firstNameOnly });
       if (answers.concerns[0]) params.set("concern", answers.concerns[0]);
       router.push(`/skin-assesment-result?${params.toString()}`);
       return;
@@ -136,10 +152,33 @@ const AssessmentForm = () => {
 
   const goBack = () => setStep((s) => Math.max(0, s - 1));
 
+  const canStart = agreed && answers.firstName.trim() !== "";
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || e.isComposing) return;
+      // Links, Back and free-text areas keep their native Enter behaviour.
+      // Option buttons are fine to hijack: preventDefault below stops their click.
+      const target = e.target as HTMLElement | null;
+      if (target?.closest('a, textarea, select, button[aria-label="Back"]'))
+        return;
+      e.preventDefault();
+      if (!started) {
+        if (canStart) setStarted(true);
+        return;
+      }
+      goNext();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  });
+
   if (!started) {
     return (
       <section className="min-h-screen  bg-brand-gradient   flex items-center justify-center py-16 lg:py-24">
         <AssessmentIntro
+          name={answers.firstName}
+          onNameChange={(v) => update("firstName", v)}
           agreed={agreed}
           onAgreedChange={setAgreed}
           onStart={() => setStarted(true)}
@@ -149,7 +188,7 @@ const AssessmentForm = () => {
   }
 
   return (
-    <section className="min-h-screen  bg-brand-gradient py-[20%] lg:py-[8%]">
+    <section className="min-h-screen  bg-brand-gradient pt-[20%] pb-[10%] lg:pt-[7%] lg:pb-[5%]">
       <ContainerLayout px py={false} className="mx-auto max-w-4xl">
         <ProgressBar step={step} total={TOTAL_STEPS} />
 
@@ -161,13 +200,12 @@ const AssessmentForm = () => {
             animate="center"
             exit="exit"
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10"
+            className=" mt-5 md:mt-10"
           >
             {step === 0 && (
               <div>
                 <StepHeading
-                  eyebrow="Let's build your formula"
-                  title="What best describes your skin concerns?"
+                  title={`${firstNameOnly || "Hey"}, what best describes your skin concerns?`}
                   subtitle="We address multiple skin concerns, but lets start with the one that matters most to you?"
                 />
                 <div className="mt-8">
@@ -183,9 +221,9 @@ const AssessmentForm = () => {
             {step === 1 && (
               <div>
                 <StepHeading
-                  eyebrow={`You picked ${summarizeList(selectedConcernLabels)}`}
-                  title="Anything else bothering you?"
-                  subtitle="Pick any extra concerns that also apply — totally optional."
+                  // eyebrow={`You picked ${summarizeList(selectedConcernLabels)}`}
+                  title="Anything else? The more we know, the more precise your formula."
+                  subtitle="You can select multiple issues, we will create the formulation keeping this also in mind."
                   required={false}
                 />
                 <div className="mt-8">
@@ -201,8 +239,16 @@ const AssessmentForm = () => {
             {step === 2 && (
               <div>
                 <StepHeading
-                  eyebrow={`Let's treat your ${primaryConcernLabel}`}
-                  title="May we know your skin type?"
+                  // eyebrow={`Let's treat your ${primaryConcernLabel}`}
+                  title={
+                    <>
+                      Since{" "}
+                      <span className="font-minion-pro italic ">
+                        {primaryConcernLabel}
+                      </span>{" "}
+                      is your main concern what&apos;s your skin type?
+                    </>
+                  }
                   subtitle="This helps us balance your formula so it works with your skin, not against it."
                 />
                 <div className="mt-8">
@@ -219,10 +265,15 @@ const AssessmentForm = () => {
             {step === 3 && (
               <div>
                 <StepHeading
-                  eyebrow={`Dealing with ${
-                    allConcernLabels.length > 0 ? summarizeList(allConcernLabels) : "this"
-                  }`}
-                  title="How long has this been going on?"
+                  title={
+                    <>
+                      Hey {firstNameOnly || "there"}, how long has{" "}
+                      <span className="font-minion-pro italic">
+                        {primaryConcernLabel}
+                      </span>{" "}
+                      been an issue?
+                    </>
+                  }
                   subtitle="The longer it's lingered, the more targeted your formula needs to be."
                 />
                 <div className="mt-8">
@@ -238,13 +289,21 @@ const AssessmentForm = () => {
             {step === 4 && (
               <div>
                 <StepHeading
-                  eyebrow={
-                    skinTypeLabel
-                      ? `Good to know — you have ${skinTypeLabel.toLowerCase()} skin`
-                      : "Let's talk sensitivity"
+                  title={
+                    skinTypeLabel ? (
+                      <>
+                        Got it,{" "}
+                        <span className="font-minion-pro italic">
+                          {skinTypeLabel.toLowerCase()}
+                        </span>{" "}
+                        skin. On a scale of 1-5, how sensitive is it?
+                      </>
+                    ) : (
+                      "On a scale of 1-5 how sensitive is your skin?"
+                    )
                   }
-                  title="How sensitive is your skin, on a scale of 1-5?"
-                  subtitle="This tells us how strong to make your actives."
+                  subtitle="This tells our dermatologist exactly how to dose
+  your formula — too strong and it won't work, too weak and it won't either."
                 />
                 <div className="mt-8">
                   <SensitivityScale
@@ -258,9 +317,16 @@ const AssessmentForm = () => {
             {step === 5 && (
               <div>
                 <StepHeading
-                  eyebrow={`For your ${primaryConcernLabel}`}
-                  title="Have you tried anything for it already?"
-                  subtitle="So we know what hasn't worked yet — pick all that apply."
+                  title={
+                    <>
+                      What have you tried for your{" "}
+                      <span className="font-minion-pro italic">
+                        {primaryConcernLabel}
+                      </span>{" "}
+                      so far?
+                    </>
+                  }
+                  subtitle="We'll build around what's working and swap what isn't."
                 />
                 <div className="mt-8">
                   <PillOptionGroup
@@ -275,9 +341,15 @@ const AssessmentForm = () => {
             {step === 6 && (
               <div>
                 <StepHeading
-                  eyebrow="Just a quick safety check"
-                  title="A few health questions"
-                  subtitle="This helps our dermatologists keep your formula safe for you specifically."
+                  wide
+                  title={
+                    <>
+                      {firstNameOnly || "Hey"}, this is a real prescription, not
+                      a pre-made bottle
+                      <br />
+                      so we ask what a regular skincare brand wouldn&apos;t
+                    </>
+                  }
                 />
                 <div className="mt-8 space-y-8">
                   <div>
@@ -288,6 +360,17 @@ const AssessmentForm = () => {
                       value={answers.onMedication}
                       onChange={(v) => update("onMedication", v)}
                     />
+                    {answers.onMedication === "yes" && (
+                      <div className="mt-4">
+                        <TextField
+                          label="Which medications?"
+                          value={answers.medicationDetails}
+                          onChange={(v) => update("medicationDetails", v)}
+                          placeholder="Tell us the medication names"
+                          required
+                        />
+                      </div>
+                    )}
                   </div>
                   <div>
                     <span className="mb-3 block text-base text-primary">
@@ -297,6 +380,17 @@ const AssessmentForm = () => {
                       value={answers.hasAllergy}
                       onChange={(v) => update("hasAllergy", v)}
                     />
+                    {answers.hasAllergy === "yes" && (
+                      <div className="mt-4">
+                        <TextField
+                          label="What are you allergic to?"
+                          value={answers.allergyDetails}
+                          onChange={(v) => update("allergyDetails", v)}
+                          placeholder="Tell us the medication and the reaction"
+                          required
+                        />
+                      </div>
+                    )}
                   </div>
                   <div>
                     <span className="mb-3 block text-base text-primary">
@@ -314,7 +408,7 @@ const AssessmentForm = () => {
             {step === 7 && (
               <div>
                 <StepHeading
-                  eyebrow={`Your ${primaryConcernLabel} formula is almost ready`}
+                  // eyebrow={`Your ${primaryConcernLabel} formula is almost ready`}
                   title="Claim your Formula"
                   subtitle="We need some details in order to ensure the formula is made precisely for you"
                 />
@@ -345,7 +439,9 @@ const AssessmentForm = () => {
                       />
                     </div>
                     <div className="flex-1">
-                      <span className="mb-2 block text-lg font-medium text-primary">Gender *</span>
+                      <span className="mb-2 block text-lg font-medium text-primary">
+                        Gender *
+                      </span>
                       <SegmentedOptions
                         options={GENDER_OPTIONS}
                         selected={[answers.gender]}
@@ -377,8 +473,7 @@ const AssessmentForm = () => {
             {step === 8 && (
               <div>
                 <StepHeading
-                  eyebrow="One last thing"
-                  title={`Hey ${answers.firstName || "there"}, where did you hear about us?`}
+                  title={`Last one, ${firstNameOnly || "friend"}! How did you find us?`}
                 />
                 <div className="mt-8">
                   <ImageOptionGrid

@@ -16,7 +16,7 @@ const AssessmentNav = ({
   nextLabel?: string;
 }) => {
   return (
-    <div className="mt-10 flex items-center justify-center gap-3">
+    <div className=" mt-6 md:mt-10 flex items-center justify-center gap-3">
       <button
         type="button"
         onClick={onBack}

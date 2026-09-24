@@ -77,7 +77,7 @@ export const CustomerResults = [
         location: "Mumbai",
         duration: "3 Months",
         desc: "My breakouts reduced significantly, my skin texture improved, and I finally stopped covering my face with makeup.",
-        type: "Scaring",
+        type: "Scarring",
     },
     {
         image: "/assets/customer-results/afreen-dl.png",
@@ -85,7 +85,7 @@ export const CustomerResults = [
         location: "Delhi",
         duration: "3 Months",
         desc: "My breakouts reduced significantly, my skin texture improved, and I finally stopped covering my face with makeup.",
-        type: "Scaring",
+        type: "Scarring",
     },
     {
         image: "/assets/customer-results/ishita-blr.png",
@@ -93,7 +93,7 @@ export const CustomerResults = [
         location: "Bangalore",
         duration: "3 Months",
         desc: "My breakouts reduced significantly, my skin texture improved, and I finally stopped covering my face with makeup.",
-        type: "Scaring",
+        type: "Scarring",
     },
     {
         image: "/assets/customer-results/tasneem-mum.png",

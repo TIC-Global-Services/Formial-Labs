@@ -53,7 +53,7 @@ export const ImageOptionGrid = ({
           >
             {option.icon &&
               (contain ? (
-                <span className="flex aspect-[4/3] w-full items-center justify-center p-6">
+                <span className="flex aspect-[4/3] w-full items-center justify-center p-4">
                   <Image
                     src={option.icon}
                     alt=""
@@ -63,7 +63,7 @@ export const ImageOptionGrid = ({
                   />
                 </span>
               ) : (
-                <span className="flex aspect-4/2 w-full items-center justify-center p-6">
+                <span className="flex aspect-4/2 w-full items-center justify-center p-4">
                   <Image
                     src={option.icon}
                     alt=""
@@ -73,9 +73,9 @@ export const ImageOptionGrid = ({
                   />
                 </span>
               ))}
-            <span className="flex items-center gap-2.5 px-4 py-2.5">
+            <span className="flex items-center gap-2.5 px-4 pb-2.5">
               <CheckboxMark checked={isSelected} />
-              <span className="text-base text-primary">{option.label}</span>
+              <span className="text-base tracking-tighter leading-tight text-primary">{option.label}</span>
             </span>
           </button>
         );

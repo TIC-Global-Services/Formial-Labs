@@ -7,21 +7,28 @@ import { ChevronsRight } from "lucide-react";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 
 const AssessmentIntro = ({
+  name,
+  onNameChange,
   agreed,
   onAgreedChange,
   onStart,
 }: {
+  name: string;
+  onNameChange: (value: string) => void;
   agreed: boolean;
   onAgreedChange: (value: boolean) => void;
   onStart: () => void;
 }) => {
+  const canStart = agreed && name.trim() !== "";
+
+
   return (
     <ContainerLayout px py={false} className="mx-auto max-w-5xl text-center">
       <motion.h1
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl"
+        className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl"
       >
         Advanced science, <br /> personalised for your skin.
       </motion.h1>
@@ -52,17 +59,32 @@ const AssessmentIntro = ({
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.3 }}
-        className="mx-auto mt-8 max-w-md text-sm text-[#525252]"
+        className="mx-auto mt-8 max-w-md text-2xl tracking-tighter  text-primary"
       >
-        All information collected is for medical purposes, will be kept
-        strictly confidential, and will not be shared outside the company.
+       Before we begin, <br />
+what should we call you?
       </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.35 }}
+        className="mx-auto mt-6 max-w-md"
+      >
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => onNameChange(e.target.value)}
+          placeholder="Enter your first name"
+          className="w-full border border-primary/30 px-4 py-3 text-lg text-primary placeholder:text-primary/40 focus:border-primary focus:outline-none"
+        />
+      </motion.div>
 
       <motion.label
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.4 }}
-        className="mt-4 flex cursor-pointer items-center justify-center gap-2 text-sm text-[#525252]"
+        className="mt-4 flex cursor-pointer items-center justify-center gap-2 text-xs md:text-sm text-[#525252]"
       >
         <input
           type="checkbox"
@@ -72,7 +94,7 @@ const AssessmentIntro = ({
         />
         <span>
           I agree to the{" "}
-          <Link href="/terms-conditions" className="font-semibold text-primary underline">
+          <Link href="/terms-of-service" className="font-semibold text-primary underline">
             Terms of Service
           </Link>{" "}
           and{" "}
@@ -89,7 +111,7 @@ const AssessmentIntro = ({
         transition={{ duration: 0.7, delay: 0.5 }}
         type="button"
         onClick={onStart}
-        disabled={!agreed}
+        disabled={!canStart}
         className="mx-auto mt-8 flex cursor-pointer items-center gap-3 overflow-hidden rounded-full border-t border-b border-white/80 bg-white/20 py-1 pr-6 pl-1.5 text-primary shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.1)] backdrop-blur-md transition-colors duration-300 ease-in-out hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <Image

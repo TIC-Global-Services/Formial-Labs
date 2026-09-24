@@ -103,8 +103,9 @@ const PoweredByEvidence = () => {
           className="mx-auto flex w-full flex-col items-center gap-4 text-center lg:flex-row lg:items-end lg:justify-between lg:text-left"
         >
           <h2 className="font-aeonik text-3xl leading-tight tracking-tighter text-primary sm:text-5xl ">
-            Powered by Science. <br />
-            Supported by Evidence.
+            Confidence Powered by Science. <br />
+Supported by Evidence.
+
           </h2>
           <p className="max-w-2xl text-base leading-tight  sm:text-lg ">
             Every ingredient we use is carefully selected based on published

@@ -46,3 +46,14 @@ export const obviously = localFont({
   ],
   variable: "--font-obviously",
 });
+
+export const minionPro = localFont({
+  src: [
+    {
+      path:"./minionpro/MinionPro-It.otf",
+      weight: "400",
+      style:"normal"
+    }
+  ],
+  variable: "--font-minion-pro"
+})

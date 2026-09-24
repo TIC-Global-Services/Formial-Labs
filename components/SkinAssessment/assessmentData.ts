@@ -14,7 +14,9 @@ export type AssessmentAnswers = {
   sensitivity: number | "not-sure" | null;
   productsUsed: string[];
   onMedication: YesNo;
+  medicationDetails: string;
   hasAllergy: YesNo;
+  allergyDetails: string;
   pregnantOrBreastfeeding: YesNo;
   firstName: string;
   lastName: string;
@@ -34,7 +36,9 @@ export const emptyAnswers: AssessmentAnswers = {
   sensitivity: null,
   productsUsed: [],
   onMedication: null,
+  medicationDetails: "",
   hasAllergy: null,
+  allergyDetails: "",
   pregnantOrBreastfeeding: null,
   firstName: "",
   lastName: "",
@@ -47,11 +51,11 @@ export const emptyAnswers: AssessmentAnswers = {
 };
 
 export const CONCERN_OPTIONS: Option[] = [
-  { value: "acne-marks", label: "Acne Marks", icon: "/assets/skin-test/acne.png" },
-  { value: "hyperpigmentation", label: "Hyperpigmentation", icon: "/assets/skin-test/hyperpigmentation.png" },
-  { value: "melasma", label: "Melasma", icon: "/assets/skin-test/melasma.png" },
-  { value: "fine-lines-ageing", label: "Fine Lines / Ageing", icon: "/assets/skin-test/ageing.png" },
+  { value: "acne-marks", label: "Acne", icon: "/assets/skin-test/acne.png" },
   { value: "scarring", label: "Scarring", icon: "/assets/skin-test/scarring.png" },
+  { value: "hyperpigmentation", label: "Hyperpigmentation", icon: "/assets/skin-test/hyperpigmentation.png" },
+  { value: "fine-lines-ageing", label: "Fine Lines / Ageing", icon: "/assets/skin-test/ageing.png" },
+  { value: "melasma", label: "Melasma", icon: "/assets/skin-test/melasma.png" },
   { value: "skincare-routine", label: "Skincare Routine / Skin Concerns", icon: "/assets/skin-test/skin-concerns.png" },
 ];
 

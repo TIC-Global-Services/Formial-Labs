@@ -2,68 +2,143 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import CustomerResultCard from "@/components/Reusable/CustomerResultCard";
 import { CustomerResults } from "@/components/Constants/CustomerResults";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 
-const ROTATE_INTERVAL = 6000;
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-const headingVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
-};
+const DESKTOP_VISIBLE_COUNT = 3;
+const DESKTOP_GAP = 32; // px, matches gap-8
 
-const gridVariants: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-  exit: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-  exit: { opacity: 0, y: -16, transition: { duration: 0.3, ease: "easeIn" } },
-};
+const TYPE_ORDER = ["Acne", "Scarring", "Hyperpigmentation", "Anti Aging", "Skin-glow"];
 
 const TrustStories = () => {
   const types = useMemo(() => {
-    const unique = Array.from(new Set(CustomerResults.map((result) => result.type)));
-    // "Acne" leads by default regardless of data order.
-    return unique.sort((a, b) => (a === "Acne" ? -1 : b === "Acne" ? 1 : 0));
+    const present = new Set(CustomerResults.map((result) => result.type));
+    return ["All", ...TYPE_ORDER.filter((type) => present.has(type))];
   }, []);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [desktopPage, setDesktopPage] = useState(0);
+  const [desktopIndex, setDesktopIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(0);
+
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLDivElement | null>(null);
+  const typesRef = useRef<HTMLDivElement | null>(null);
+  const desktopCarouselRef = useRef<HTMLDivElement | null>(null);
+  const desktopViewportRef = useRef<HTMLDivElement | null>(null);
+  const desktopTrackRef = useRef<HTMLDivElement | null>(null);
+  const mobileCarouselRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
   const rafId = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (types.length < 2) return;
-    const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % types.length);
-    }, ROTATE_INTERVAL);
-    return () => clearInterval(id);
-  }, [types.length]);
+  const dragStartX = useRef<number | null>(null);
+  const isFirstMobileRender = useRef(true);
+  const prevActiveType = useRef<string | null>(null);
 
   const activeType = types[activeIndex];
-  const visibleResults = CustomerResults.filter((result) => result.type === activeType);
+  const visibleResults =
+    activeType === "All"
+      ? CustomerResults
+      : CustomerResults.filter((result) => result.type === activeType);
 
-  const DESKTOP_PAGE_SIZE = 3;
-  const desktopPageCount = Math.ceil(visibleResults.length / DESKTOP_PAGE_SIZE);
-  const desktopPageResults = visibleResults.slice(
-    desktopPage * DESKTOP_PAGE_SIZE,
-    desktopPage * DESKTOP_PAGE_SIZE + DESKTOP_PAGE_SIZE
+  const maxDesktopIndex = Math.max(
+    0,
+    visibleResults.length - DESKTOP_VISIBLE_COUNT,
   );
 
+  const goToDesktopIndex = (dir: 1 | -1) => {
+    setDesktopIndex((prev) => Math.min(Math.max(prev + dir, 0), maxDesktopIndex));
+  };
+
   useEffect(() => {
-    // Resets the DOM scroll position when the type filter changes — the
-    // setState here is tightly coupled to that same external scroll reset.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveSlide(0);
-    setDesktopPage(0);
+    setDesktopIndex(0);
     scrollRef.current?.scrollTo({ left: 0 });
+  }, [activeType]);
+
+  // Measure the desktop viewport so each card is exactly 1/3 of it, gap included.
+  useEffect(() => {
+    const el = desktopViewportRef.current;
+    if (!el) return;
+    const update = () => {
+      const width = el.clientWidth;
+      if (!width) return;
+      setCardWidth(
+        (width - DESKTOP_GAP * (DESKTOP_VISIBLE_COUNT - 1)) /
+          DESKTOP_VISIBLE_COUNT,
+      );
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // Entrance reveal, runs once when the section scrolls into view.
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const targets = [
+        headingRef.current,
+        typesRef.current,
+        desktopCarouselRef.current,
+        mobileCarouselRef.current,
+      ].filter(Boolean);
+
+      gsap.set(targets, { opacity: 0, y: 24 });
+
+      gsap.to(targets, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Desktop carousel: slide by exactly one card width per step. Jumps
+  // straight to position when the category swaps out the card set.
+  useEffect(() => {
+    if (!desktopTrackRef.current || cardWidth === 0) return;
+    const targetX = -(desktopIndex * (cardWidth + DESKTOP_GAP));
+
+    if (prevActiveType.current !== activeType) {
+      gsap.set(desktopTrackRef.current, { x: targetX });
+    } else {
+      gsap.to(desktopTrackRef.current, {
+        x: targetX,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    }
+    prevActiveType.current = activeType;
+  }, [desktopIndex, cardWidth, activeType]);
+
+  // Mobile carousel: fade the track in whenever the category changes.
+  useEffect(() => {
+    if (isFirstMobileRender.current) {
+      isFirstMobileRender.current = false;
+      return;
+    }
+    if (!scrollRef.current) return;
+    gsap.fromTo(
+      scrollRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4, ease: "power2.out" },
+    );
   }, [activeType]);
 
   useEffect(() => {
@@ -102,14 +177,23 @@ const TrustStories = () => {
     });
   };
 
+  const handleDesktopPointerDown = (e: React.PointerEvent) => {
+    dragStartX.current = e.clientX;
+  };
+
+  const handleDesktopPointerUp = (e: React.PointerEvent) => {
+    if (dragStartX.current === null) return;
+    const delta = e.clientX - dragStartX.current;
+    dragStartX.current = null;
+    if (delta < -60) goToDesktopIndex(1);
+    else if (delta > 60) goToDesktopIndex(-1);
+  };
+
   return (
-    <section className="bg-brand-gradient py-20 lg:py-28">
+    <section className="bg-brand-gradient py-20 lg:py-28" ref={sectionRef}>
       <ContainerLayout>
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.4 }}
-          variants={headingVariants}
+        <div
+          ref={headingRef}
           className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between"
         >
           <h1 className="font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-5xl lg:text-7xl">
@@ -139,14 +223,11 @@ const TrustStories = () => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.4 }}
-          variants={headingVariants}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3 w-full"
+        <div
+          ref={typesRef}
+          className="mt-10 flex w-full flex-wrap items-center justify-center gap-3"
         >
           {types.map((type, index) => {
             const isActive = index === activeIndex;
@@ -158,44 +239,71 @@ const TrustStories = () => {
                 className={`cursor-pointer rounded-xl px-5 py-2.5 font-obviously text-xs font-bold uppercase tracking-wide transition-colors duration-200 ${
                   isActive
                     ? "bg-[url('/assets/common/button-bg.png')] bg-cover bg-center text-primary "
-                    : "bg-white text-primary/60 hover:border-primary/40"
+                    : "border border-primary text-primary hover:border-primary/40"
                 }`}
               >
                 {type}
               </button>
             );
           })}
-        </motion.div>
+        </div>
 
-        {/* Desktop: 3-column grid, paginated when a type has more than 3 */}
-        <div className="mt-10 hidden lg:block">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${activeType}-${desktopPage}`}
-              variants={gridVariants}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-              className="grid grid-cols-3 gap-8"
+        {/* Desktop: sliding 3-card carousel */}
+        <div ref={desktopCarouselRef} className="mt-10 hidden lg:block">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              aria-label="Previous reviews"
+              onClick={() => goToDesktopIndex(-1)}
+              disabled={desktopIndex <= 0}
+              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-primary/30 text-primary transition-colors hover:bg-primary hover:text-white disabled:pointer-events-none disabled:opacity-30"
             >
-              {desktopPageResults.map((result) => (
-                <motion.div key={`${result.type}-${result.name}`} variants={cardVariants}>
-                  <CustomerResultCard {...result} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+              <ChevronLeft className="h-5 w-5" />
+            </button>
 
-          {desktopPageCount > 1 && (
+            <div ref={desktopViewportRef} className="flex-1 overflow-hidden">
+              <div
+                ref={desktopTrackRef}
+                onPointerDown={handleDesktopPointerDown}
+                onPointerUp={handleDesktopPointerUp}
+                onPointerLeave={() => {
+                  dragStartX.current = null;
+                }}
+                className="flex cursor-grab gap-8 active:cursor-grabbing"
+              >
+                {visibleResults.map((result) => (
+                  <div
+                    key={`${result.type}-${result.name}`}
+                    style={{ width: cardWidth || undefined }}
+                    className="shrink-0"
+                  >
+                    <CustomerResultCard {...result} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              aria-label="Next reviews"
+              onClick={() => goToDesktopIndex(1)}
+              disabled={desktopIndex >= maxDesktopIndex}
+              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-primary/30 text-primary transition-colors hover:bg-primary hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          {maxDesktopIndex > 0 && (
             <div className="mt-8 flex items-center justify-center gap-2">
-              {Array.from({ length: desktopPageCount }, (_, i) => (
+              {Array.from({ length: maxDesktopIndex + 1 }, (_, index) => (
                 <button
-                  key={i}
+                  key={`desktop-index-dot-${index}`}
                   type="button"
-                  aria-label={`Go to page ${i + 1}`}
-                  onClick={() => setDesktopPage(i)}
+                  aria-label={`Go to review ${index + 1}`}
+                  onClick={() => setDesktopIndex(index)}
                   className={`h-2 cursor-pointer rounded-full bg-primary transition-all duration-300 ${
-                    i === desktopPage ? "w-10 opacity-100" : "w-4 opacity-30"
+                    index === desktopIndex ? "w-10 opacity-100" : "w-4 opacity-30"
                   }`}
                 />
               ))}
@@ -204,49 +312,60 @@ const TrustStories = () => {
         </div>
 
         {/* Mobile / tablet: swipeable carousel, dot pagination */}
-        <div className="mt-10 lg:hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeType}
-              variants={gridVariants}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-            >
-              <div
-                ref={scrollRef}
-                onScroll={handleScroll}
-                className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-2 scrollbar-none md:-mx-12 md:px-12"
-              >
-                {visibleResults.map((result, index) => (
-                  <motion.div
-                    key={`${result.type}-${result.name}`}
-                    ref={(el) => {
-                      slideRefs.current[index] = el;
-                    }}
-                    variants={cardVariants}
-                    className="w-full shrink-0 snap-center sm:w-[62%]"
-                  >
-                    <CustomerResultCard {...result} />
-                  </motion.div>
-                ))}
-              </div>
+        <div ref={mobileCarouselRef} className="relative mt-10 lg:hidden">
+          <button
+            type="button"
+            aria-label="Previous reviews"
+            onClick={() => scrollToSlide(Math.max(activeSlide - 1, 0))}
+            disabled={activeSlide <= 0}
+            className="absolute top-1/2 -left-4 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl border border-primary/30 bg-white text-primary shadow-md transition-colors disabled:pointer-events-none disabled:opacity-30"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
 
-              <div className="mt-6 flex items-center justify-center gap-2">
-                {visibleResults.map((result, index) => (
-                  <button
-                    key={`${result.type}-${result.name}-dot`}
-                    type="button"
-                    aria-label={`Go to review ${index + 1}`}
-                    onClick={() => scrollToSlide(index)}
-                    className={`h-2 rounded-full bg-primary transition-all duration-300 ${
-                      index === activeSlide ? "w-10 opacity-100" : "w-4 opacity-30"
-                    }`}
-                  />
-                ))}
+          <div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-2 scrollbar-none md:-mx-12 md:px-12"
+          >
+            {visibleResults.map((result, index) => (
+              <div
+                key={`${result.type}-${result.name}`}
+                ref={(el) => {
+                  slideRefs.current[index] = el;
+                }}
+                className="w-full shrink-0 snap-center sm:w-[62%]"
+              >
+                <CustomerResultCard {...result} />
               </div>
-            </motion.div>
-          </AnimatePresence>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            aria-label="Next reviews"
+            onClick={() =>
+              scrollToSlide(Math.min(activeSlide + 1, visibleResults.length - 1))
+            }
+            disabled={activeSlide >= visibleResults.length - 1}
+            className="absolute top-1/2 -right-4 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl border border-primary/30 bg-white text-primary shadow-md transition-colors disabled:pointer-events-none disabled:opacity-30"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {visibleResults.map((result, index) => (
+              <button
+                key={`${result.type}-${result.name}-dot`}
+                type="button"
+                aria-label={`Go to review ${index + 1}`}
+                onClick={() => scrollToSlide(index)}
+                className={`h-2 rounded-full bg-primary transition-all duration-300 ${
+                  index === activeSlide ? "w-10 opacity-100" : "w-4 opacity-30"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </ContainerLayout>
     </section>

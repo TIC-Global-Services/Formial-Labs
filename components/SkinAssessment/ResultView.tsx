@@ -95,7 +95,11 @@ const ResultView = () => {
 
   return (
     <>
-      <ResultHero firstName={answers.firstName || "there"} copied={copied} onShare={handleShare} />
+      <ResultHero
+        firstName={answers.firstName.trim().split(/\s+/)[0] || "there"}
+        copied={copied}
+        onShare={handleShare}
+      />
       <ResultPlan answers={answers} />
       <ResultIngredients />
       <ResultGuarantee />
