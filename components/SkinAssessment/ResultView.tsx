@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 import { AssessmentAnswers, emptyAnswers } from "./assessmentData";
+import { fetchAssessment } from "@/lib/assessmentApi";
 import ResultFAQ from "./ResultFAQ";
 import ResultGuarantee from "./ResultGuarantee";
 import ResultHero from "./ResultHero";
@@ -16,6 +17,7 @@ import SkinTransformationGallery from "../Home/SkinTransformationGallery";
 const ResultView = () => {
   const [answers, setAnswers] = useState<AssessmentAnswers | null>(null);
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // sessionStorage and the URL are both browser-only, unavailable during
@@ -24,20 +26,51 @@ const ResultView = () => {
     if (raw) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setAnswers(JSON.parse(raw) as AssessmentAnswers);
+      setLoading(false);
       return;
     }
 
     // No session on this device — this is likely a link someone shared.
-    // Rebuild a lightweight, read-only view from the URL instead.
     const params = new URLSearchParams(window.location.search);
+    const submissionId = params.get("submissionId");
     const name = params.get("name");
-    if (!name) return;
     const concern = params.get("concern");
-    setAnswers({
-      ...emptyAnswers,
-      firstName: name,
-      concerns: concern ? [concern] : [],
-    });
+
+    // Lightweight, read-only view rebuilt from the URL alone.
+    const fromUrl = () => {
+      if (!name) return;
+      setAnswers({
+        ...emptyAnswers,
+        firstName: name,
+        concerns: concern ? [concern] : [],
+      });
+    };
+
+    if (!submissionId) {
+      fromUrl();
+      setLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    fetchAssessment(submissionId)
+      .then((data) => {
+        if (cancelled) return;
+        if (data) {
+          setAnswers({ ...emptyAnswers, ...data });
+        } else {
+          fromUrl();
+        }
+      })
+      .catch(() => {
+        if (!cancelled) fromUrl();
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleShare = async () => {
@@ -71,6 +104,8 @@ const ResultView = () => {
       // clipboard permission denied — nothing more we can do silently
     }
   };
+
+  if (loading) return null;
 
   if (!answers) {
     return (

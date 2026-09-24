@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
+import Toast from "@/components/Reusable/Toast";
+import { submitAssessment } from "@/lib/assessmentApi";
 import AssessmentIntro from "./AssessmentIntro";
 import ProgressBar from "./ProgressBar";
 import StepHeading from "./StepHeading";
@@ -43,6 +45,9 @@ const AssessmentForm = () => {
   const router = useRouter();
   const [started, setStarted] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const closeToast = useCallback(() => setSaveError(null), []);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<AssessmentAnswers>(emptyAnswers);
 
@@ -136,15 +141,23 @@ const AssessmentForm = () => {
     }
   })();
 
-  const goNext = () => {
-    if (!canContinue) return;
+  const goNext = async () => {
+    if (!canContinue || submitting) return;
     if (step === TOTAL_STEPS - 1) {
-      sessionStorage.setItem("formial_assessment", JSON.stringify(answers));
-      // Only non-sensitive fields go in the URL — this is what makes the
-      // result page shareable without leaking phone/email/medical answers.
-      const params = new URLSearchParams({ name: firstNameOnly });
-      if (answers.concerns[0]) params.set("concern", answers.concerns[0]);
-      router.push(`/skin-assesment-result?${params.toString()}`);
+      setSubmitting(true);
+      setSaveError(null);
+      try {
+        const submissionId = await submitAssessment(answers);
+        if (!submissionId) throw new Error("No submissionId returned");
+        sessionStorage.setItem("formial_assessment", JSON.stringify(answers));
+        router.push(`/skin-assesment-result?submissionId=${encodeURIComponent(submissionId)}`);
+      } catch (err) {
+        console.error("Assessment save failed", err);
+        setSaveError(
+          "We couldn't save your answers. Please check your connection and press Submit again."
+        );
+        setSubmitting(false);
+      }
       return;
     }
     setStep((s) => s + 1);
@@ -492,11 +505,12 @@ const AssessmentForm = () => {
           onBack={goBack}
           onNext={goNext}
           backDisabled={step === 0}
-          nextDisabled={!canContinue}
-          nextLabel={step === TOTAL_STEPS - 1 ? "Submit" : "Next"}
+          nextDisabled={!canContinue || submitting}
+          nextLabel={step === TOTAL_STEPS - 1 ? (submitting ? "Submitting..." : "Submit") : "Next"}
         />
 
         <TestimonialFloat step={step} />
+        <Toast message={saveError} onClose={closeToast} />
       </ContainerLayout>
     </section>
   );
