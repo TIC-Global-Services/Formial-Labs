@@ -7,6 +7,7 @@ import ContainerLayout from "@/components/Reusable/ContainerLayout";
 import Toast from "@/components/Reusable/Toast";
 import { submitAssessment } from "@/lib/assessmentApi";
 import AssessmentIntro from "./AssessmentIntro";
+import AssessmentStatus from "./AssessmentStatus";
 import ProgressBar from "./ProgressBar";
 import StepHeading from "./StepHeading";
 import AssessmentNav from "./AssessmentNav";
@@ -201,8 +202,9 @@ const AssessmentForm = () => {
   }
 
   return (
-    <section className="min-h-screen  bg-brand-gradient pt-[20%] pb-[10%] lg:pt-[7%] lg:pb-[5%]">
+    <section className="min-h-screen  bg-brand-gradient pt-[20%] pb-[10%] lg:pt-[5%] lg:pb-[5%]">
       <ContainerLayout px py={false} className="mx-auto max-w-4xl">
+        <AssessmentStatus step={step} answers={answers} />
         <ProgressBar step={step} total={TOTAL_STEPS} />
 
         <AnimatePresence mode="wait">
