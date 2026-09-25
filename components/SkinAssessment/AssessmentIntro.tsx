@@ -37,7 +37,7 @@ const AssessmentIntro = ({
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mx-auto mt-10 h-56 w-full max-w-sm sm:h-72"
+        className="relative mx-auto mt-6 h-80 w-full max-w-md sm:h-70"
       >
         <motion.div
           animate={{ y: [0, -10, 0] }}
@@ -45,11 +45,12 @@ const AssessmentIntro = ({
           className="absolute inset-0 flex items-center justify-center"
         >
           <Image
-            src="/assets/home/formial-bottle.png"
+            src="/assets/home/formial-new-bottle-cropped.png"
             alt="Formial Labs"
-            width={220}
-            height={330}
-            className="h-full w-auto -rotate-12 object-contain drop-shadow-xl"
+            width={356}
+            height={399}
+            priority
+            className="h-full w-full object-contain drop-shadow-xl"
           />
         </motion.div>
 
@@ -61,7 +62,7 @@ const AssessmentIntro = ({
         transition={{ duration: 0.7, delay: 0.3 }}
         className="mx-auto mt-8 max-w-md text-2xl tracking-tighter  text-primary"
       >
-       Before we begin, <br />
+       Hey, before we begin, <br />
 what should we call you?
       </motion.p>
 

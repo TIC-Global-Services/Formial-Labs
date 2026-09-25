@@ -13,6 +13,7 @@ import {
   SKIN_TYPE_OPTIONS,
   summarizeList,
 } from "./assessmentData";
+import { ThinkingOrb } from 'thinking-orbs';
 
 const TRANSIENT_MS = 2200;
 const IDLE_FIRST_MS = 5000;
@@ -37,9 +38,9 @@ const selectionFor = (step: number, a: AssessmentAnswers): { key: string; subjec
       return { key: a.otherConcerns.join(","), subject: summarizeList(labels) };
     }
     case 2:
-      return { key: a.skinType, subject: labelFor(SKIN_TYPE_OPTIONS, a.skinType) };
-    case 3:
       return { key: a.duration, subject: labelFor(DURATION_OPTIONS, a.duration) };
+    case 3:
+      return { key: a.skinType, subject: labelFor(SKIN_TYPE_OPTIONS, a.skinType) };
     case 4:
       return {
         key: a.sensitivity === null ? "" : String(a.sensitivity),
@@ -60,8 +61,8 @@ const isPending = (step: number, a: AssessmentAnswers): boolean => {
   switch (step) {
     case 0: return a.concerns.length === 0;
     case 1: return a.otherConcerns.length === 0;
-    case 2: return a.skinType === "";
-    case 3: return a.duration === "";
+    case 2: return a.duration === "";
+    case 3: return a.skinType === "";
     case 4: return a.sensitivity === null;
     case 5: return a.productsUsed.length === 0;
     case 6: return a.onMedication === null || a.hasAllergy === null || a.pregnantOrBreastfeeding === null;
@@ -83,14 +84,14 @@ const NUDGES: Record<number, string[]> = {
     "The more we know, the more precise your formula.",
   ],
   2: [
-    "Think about how your skin feels by midday.",
-    "Not sure of your skin type? Pick \"Not sure yet\" and we'll help.",
-    "Tap the one that sounds most like you.",
-  ],
-  3: [
     "A rough guess is fine. It still helps us a lot.",
     "Not sure? \"Not sure yet\" is a perfectly good answer.",
     "How long has it been around? Pick one.",
+  ],
+  3: [
+    "Think about how your skin feels by midday.",
+    "Not sure of your skin type? Pick \"Not sure yet\" and we'll help.",
+    "Tap the one that sounds most like you.",
   ],
   4: [
     "1 is barely sensitive, 5 is very sensitive.",
@@ -134,13 +135,13 @@ const settledMessage = (step: number, a: AssessmentAnswers, subject: string): Re
         ? <>Adding <S>{subject}</S> to your {primary ? <S>{primary}</S> : "skin"} plan</>
         : "Anything else? We'll build it into your formula.";
     case 2:
-      return a.skinType
-        ? <>Balancing your formula for <S>{subject.toLowerCase()}</S></>
-        : <>Choosing the right base for your {primary ? <S>{primary}</S> : "skin"} formula</>;
-    case 3:
       return a.duration
         ? <><S>{subject}</S>, noted. Setting how strong to go</>
         : "Timing matters. It shapes how strong your formula needs to be.";
+    case 3:
+      return a.skinType
+        ? <>Balancing your formula for <S>{subject.toLowerCase()}</S></>
+        : <>Choosing the right base for your {primary ? <S>{primary}</S> : "skin"} formula</>;
     case 4:
       if (a.sensitivity === null) return "Working out how gentle your formula should be.";
       return a.sensitivity === "not-sure"
@@ -242,14 +243,14 @@ const AssessmentStatus = ({ step, answers }: { step: number; answers: Assessment
   return (
     <div className="mb-3 flex justify-center" aria-live="polite">
       <div className="flex max-w-full items-center gap-3 py-2 pr-6 pl-2 text-primary ">
-        <Image
-          src="/assets/calibrate-sm.gif"
-          alt=""
-          width={40}
-          height={40}
-          unoptimized
-          className="h-10 w-10 shrink-0 rounded-full"
-        />
+        {/* Orb only ships at 64 or 20, so shrink the 64 preset with a transform.
+            Outer box reserves the scaled size (64 * scale) so layout matches. */}
+        <div className="flex size-12 shrink-0 items-center justify-center">
+          <div className="origin-center scale-75">
+            <ThinkingOrb state="connecting" theme="light" size={64} color="#004763" dotSize={1.5} />
+          </div>
+        </div>
+
         <AnimatePresence mode="wait" initial={false}>
           <motion.p
             key={messageId}

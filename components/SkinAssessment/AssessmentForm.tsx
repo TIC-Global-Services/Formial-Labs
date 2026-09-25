@@ -111,9 +111,9 @@ const AssessmentForm = () => {
       case 1:
         return true;
       case 2:
-        return answers.skinType !== "";
-      case 3:
         return answers.duration !== "";
+      case 3:
+        return answers.skinType !== "";
       case 4:
         return answers.sensitivity !== null;
       case 5:
@@ -254,11 +254,35 @@ const AssessmentForm = () => {
             {step === 2 && (
               <div>
                 <StepHeading
+                  title={
+                    <>
+                      Hey {firstNameOnly || "there"}, how long has{" "}
+                      <span className="font-minion-pro italic text-[28px] md:text-[42px]">
+                        {primaryConcernLabel}
+                      </span>{" "}
+                      been an issue?
+                    </>
+                  }
+                  subtitle="The longer it's lingered, the more targeted your formula needs to be."
+                />
+                <div className="mt-8">
+                  <PillOptionGroup
+                    options={DURATION_OPTIONS}
+                    selected={[answers.duration]}
+                    onToggle={(v) => update("duration", v)}
+                  />
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div>
+                <StepHeading
                   // eyebrow={`Let's treat your ${primaryConcernLabel}`}
                   title={
                     <>
                       Since{" "}
-                      <span className="font-minion-pro italic ">
+                      <span className="font-minion-pro italic  text-[28px] md:text-[42px]">
                         {primaryConcernLabel}
                       </span>{" "}
                       is your main concern what&apos;s your skin type?
@@ -277,30 +301,6 @@ const AssessmentForm = () => {
               </div>
             )}
 
-            {step === 3 && (
-              <div>
-                <StepHeading
-                  title={
-                    <>
-                      Hey {firstNameOnly || "there"}, how long has{" "}
-                      <span className="font-minion-pro italic">
-                        {primaryConcernLabel}
-                      </span>{" "}
-                      been an issue?
-                    </>
-                  }
-                  subtitle="The longer it's lingered, the more targeted your formula needs to be."
-                />
-                <div className="mt-8">
-                  <PillOptionGroup
-                    options={DURATION_OPTIONS}
-                    selected={[answers.duration]}
-                    onToggle={(v) => update("duration", v)}
-                  />
-                </div>
-              </div>
-            )}
-
             {step === 4 && (
               <div>
                 <StepHeading
@@ -308,7 +308,7 @@ const AssessmentForm = () => {
                     skinTypeLabel ? (
                       <>
                         Got it,{" "}
-                        <span className="font-minion-pro italic">
+                        <span className="font-minion-pro italic text-[28px] md:text-[42px]">
                           {skinTypeLabel.toLowerCase()}
                         </span>{" "}
                         skin. On a scale of 1-5, how sensitive is it?
@@ -334,11 +334,8 @@ const AssessmentForm = () => {
                 <StepHeading
                   title={
                     <>
-                      What have you tried for your{" "}
-                      <span className="font-minion-pro italic">
-                        {primaryConcernLabel}
-                      </span>{" "}
-                      so far?
+                      {firstNameOnly || "Hey"}, can you please tell us what products are already in
+                      your routine?
                     </>
                   }
                   subtitle="We'll build around what's working and swap what isn't."
@@ -360,9 +357,7 @@ const AssessmentForm = () => {
                   title={
                     <>
                       {firstNameOnly || "Hey"}, this is a real prescription, not
-                      a pre-made bottle
-                      <br />
-                      so we ask what a regular skincare brand wouldn&apos;t
+                      a pre-made bottle so we ask what a regular skincare brand wouldn&apos;t
                     </>
                   }
                 />
