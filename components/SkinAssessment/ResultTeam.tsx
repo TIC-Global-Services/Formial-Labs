@@ -16,7 +16,7 @@ const itemVariants: Variants = {
 
 const ResultTeam = () => {
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-white py-6 lg:py-24">
       <ContainerLayout px py={false} className="mx-auto max-w-7xl">
         <motion.div
           initial="hidden"
@@ -40,7 +40,7 @@ const ResultTeam = () => {
           >
             <div className="relative aspect-16/9 w-full overflow-hidden rounded-2xl">
               <Image
-                src="/assets/team/team.jpg"
+                src="/assets/team/team-group-pic.jpg"
                 alt="The Formial Labs dermatology team"
                 fill
                 sizes="(min-width: 1024px) 60vw, 100vw"

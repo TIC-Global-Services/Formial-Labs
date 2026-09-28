@@ -134,6 +134,7 @@ const ResultView = () => {
         firstName={answers.firstName.trim().split(/\s+/)[0] || "there"}
         copied={copied}
         onShare={handleShare}
+        answers={answers}
       />
       <ResultPlan answers={answers} />
       <ResultIngredients />

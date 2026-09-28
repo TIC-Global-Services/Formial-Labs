@@ -153,3 +153,45 @@ export const needsDermReview = (answers: AssessmentAnswers) =>
   answers.onMedication === "yes" ||
   answers.hasAllergy === "yes" ||
   answers.pregnantOrBreastfeeding === "yes";
+
+// Each formula is a hand-mixed compound; these are the five base combinations
+// a dermatologist starts from, picked by which concerns were selected.
+const FORMULATION_COMBOS: { ingredients: string[]; matches: (c: Set<string>) => boolean }[] = [
+  {
+    ingredients: ["Prescription retinoids", "Hydroquinone", "Tranexamic acid"],
+    matches: (c) => c.has("melasma"),
+  },
+  {
+    ingredients: ["Prescription retinoids", "Azelaic acid", "Niacinamide", "Clindamycin"],
+    matches: (c) => c.has("acne-marks") && c.has("hyperpigmentation") && c.has("scarring"),
+  },
+  {
+    ingredients: ["Prescription retinoids", "Azelaic acid", "Tranexamic acid", "Kojic acid"],
+    matches: (c) => c.has("hyperpigmentation") && c.has("scarring"),
+  },
+  {
+    ingredients: ["Prescription retinoids", "Azelaic acid", "Niacinamide", "Clindamycin"],
+    matches: (c) => c.has("acne-marks") || c.has("scarring"),
+  },
+  {
+    ingredients: ["Prescription retinoids", "Azelaic acid", "Tranexamic acid", "Kojic acid"],
+    matches: (c) => c.has("hyperpigmentation"),
+  },
+  {
+    ingredients: ["Prescription retinoids", "Azelaic acid", "Niacinamide"],
+    matches: (c) => c.has("fine-lines-ageing"),
+  },
+  {
+    ingredients: ["Prescription retinoids", "Azelaic acid", "Niacinamide", "Centella asiatica"],
+    matches: (c) => c.has("skincare-routine"),
+  },
+];
+
+const DEFAULT_FORMULATION = ["Prescription retinoids", "Azelaic acid", "Niacinamide", "Centella asiatica"];
+
+/** Which active ingredients to show for a customer's formula, based on their
+ * selected concerns — mirrors the dermatologist's five base combinations. */
+export const getFormulationIngredients = (answers: AssessmentAnswers): string[] => {
+  const concerns = new Set([...answers.concerns, ...answers.otherConcerns]);
+  return FORMULATION_COMBOS.find((combo) => combo.matches(concerns))?.ingredients ?? DEFAULT_FORMULATION;
+};

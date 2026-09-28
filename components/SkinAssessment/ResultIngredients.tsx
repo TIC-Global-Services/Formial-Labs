@@ -1,27 +1,31 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { Droplet, Star } from "lucide-react";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 
 const INGREDIENTS = [
   {
     name: "Prescription-Strength Retinoids",
     desc: "Speeds up skin cell turnover to smooth texture, fade marks, and soften fine lines over time.",
+    image: "/assets/ingredient_placeholder.png",
   },
   {
     name: "Niacinamide",
     desc: "Calms inflammation, strengthens your skin barrier, and helps even out tone.",
+    image: "/assets/ingredient_placeholder.png",
   },
   {
     name: "Clindamycin",
     desc: "A targeted antibiotic that clears the bacteria behind active breakouts.",
+    image: "/assets/ingredient_placeholder.png",
   },
   {
     name: "Possible Other Ingredients",
     desc: "Your dermatologist may add further actives based on your specific assessment.",
+    image: "/assets/ingredient_placeholder.png",
   },
 ];
 
@@ -92,10 +96,11 @@ const ResultIngredients = () => {
           </motion.p>
 
           <motion.div variants={itemVariants} className="mt-8">
+            {/* Mobile: swipeable snap-scroll cards */}
             <div
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-none sm:grid sm:grid-cols-2 sm:overflow-visible"
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-none sm:hidden"
             >
               {INGREDIENTS.map((item, i) => (
                 <div
@@ -103,15 +108,21 @@ const ResultIngredients = () => {
                   ref={(el) => {
                     itemRefs.current[i] = el;
                   }}
-                  className="w-[85%] shrink-0 snap-start rounded-2xl bg-white p-6 text-left sm:w-auto"
+                  className="w-[85%] shrink-0 snap-start rounded-2xl bg-white p-6 text-left"
                 >
-                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/40">
-                    <Droplet size={22} strokeWidth={1.75} className="text-primary" />
+                  <span className="block aspect-square w-14 overflow-hidden rounded-2xl bg-secondary/40">
+                    <Image
+                      src={item.image}
+                      alt=""
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-cover"
+                    />
                   </span>
-                  <h3 className="mt-4 font-aeonik text-xl md:text-2xl tracking-tight font-medium text-primary">
+                  <h3 className="mt-4 font-aeonik text-xl tracking-tight font-medium text-primary">
                     {item.name}
                   </h3>
-                  <p className="mt-1 md:text-lg leading-tight tracking-tight text-[#525252]">{item.desc}</p>
+                  <p className="mt-1 leading-tight tracking-tight text-[#525252]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -120,11 +131,40 @@ const ResultIngredients = () => {
               {INGREDIENTS.map((item, i) => (
                 <span
                   key={`${item.name}-dot`}
-                  className={`h-2 rounded-full bg-primary transition-all duration-300 ${
-                    i === activeCard ? "w-8 opacity-100" : "w-4 opacity-30"
-                  }`}
+                  className={`h-2 rounded-full bg-primary transition-all duration-300 ${i === activeCard ? "w-8 opacity-100" : "w-4 opacity-30"
+                    }`}
                 />
               ))}
+            </div>
+
+            {/* Desktop / tablet: auto-scrolling marquee with edge fades */}
+            <div className="relative hidden overflow-hidden sm:block">
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-[#B5CBC9] to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-[#B5CBC9] to-transparent" />
+              <div className="flex w-max animate-marquee gap-4">
+                {[...INGREDIENTS, ...INGREDIENTS].map((item, i) => (
+                  <div
+                    key={`${item.name}-${i}`}
+                    className="w-100 shrink-0 rounded-2xl bg-white p-6 text-left"
+                  >
+                    <span className="block aspect-square w-20 overflow-hidden rounded-2xl bg-secondary/40">
+                      <Image
+                        src={item.image}
+                        alt=""
+                        width={76}
+                        height={76}
+                        className="h-full w-full object-cover"
+                      />
+                    </span>
+                    <h3 className="mt-4 font-aeonik text-2xl tracking-tighter  text-primary">
+                      {item.name}
+                    </h3>
+                    <p className="mt-1 text-lg leading-tight tracking-tighter text-[#525252]">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -138,15 +178,16 @@ const ResultIngredients = () => {
           </motion.div>
 
           <motion.div variants={itemVariants} className="mt-6 flex flex-col items-center gap-2">
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} size={16} strokeWidth={0} className="fill-secondary" />
-              ))}
-            </div>
-            <p className="flex items-center gap-1.5 text-base leading-tight text-white">
-              10k+ Verified Reviews on
-              <Star size={14} strokeWidth={0} className="fill-[#00b67a]" />
-              <span className="font-semibold text-white">Trustpilot</span>
+            <Image
+              src="/assets/common/trustpilot_black.png"
+              alt="Trustpilot"
+              width={160}
+              height={32}
+              className="h-7 w-auto object-contain"
+            />
+            <p className="text-center text-base font-medium text-primary">
+              4.7 Stars from Verified Reviews
+              That Speak for Themselves
             </p>
           </motion.div>
         </motion.div>

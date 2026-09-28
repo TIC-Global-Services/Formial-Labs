@@ -4,20 +4,23 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { CheckCheck, ChevronsRight, Share2 } from "lucide-react";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
-import { PLAN } from "./assessmentData";
+import { AssessmentAnswers, getFormulationIngredients, PLAN } from "./assessmentData";
 
 const ResultHero = ({
   firstName,
   copied,
   onShare,
+  answers,
 }: {
   firstName: string;
   copied: boolean;
   onShare: () => void;
+  answers: AssessmentAnswers;
 }) => {
+  const formulationIngredients = getFormulationIngredients(answers);
   return (
-    <section className=" min-h-screen bg-brand-gradient flex items-center justify-center py-16 lg:py-24">
-      <ContainerLayout px py={false} className="mx-auto max-w-4xl text-center">
+    <section className=" min-h-screen bg-brand-gradient flex items-center justify-center py-16 lg:py-24 px-4">
+      <ContainerLayout px py={false} className="mx-auto w-full min-w-0 max-w-4xl text-center">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,7 +65,7 @@ const ResultHero = ({
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="mx-auto mt-10 flex h-56 items-center justify-center sm:h-72"
+          className="mx-auto mt-10 flex h-56 items-center justify-center sm:h-72 relative"
         >
           <Image
             src={PLAN.image}
@@ -71,6 +74,7 @@ const ResultHero = ({
             height={330}
             className="h-full w-auto -rotate-12 object-contain drop-shadow-xl"
           />
+         
         </motion.div>
 
         <motion.div
@@ -106,10 +110,10 @@ const ResultHero = ({
                 height={80}
                 className="h-16 w-16 shrink-0 rounded-full"
               />
-              <span className="flex min-w-0 flex-col">
-                <span className="truncate text-lg leading-tight">Includes 2-Month Formula</span>
-                <span className="truncate text-2xl font-semibold leading-tight">
-                  + Expert Guidance
+              <span className="flex min-w-0 flex-col text-black text-start items-start">
+                <span className="truncate text-lg  leading-tight">Includes 2-Month</span>
+                <span className="truncate text-2xl  leading-tight">
+                  Formula + Expert Guidance
                 </span>
               </span>
             </div>
@@ -130,6 +134,27 @@ const ResultHero = ({
           <p className="mt-3 text-sm leading-tight text-[#525252] min-[1200px]:hidden">
             Includes 2-Month Formula + Expert Guidance
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="relative mx-auto mt-10 max-w-md overflow-hidden"
+        >
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-[#f7f8f8] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-[#f7f8f8] to-transparent" />
+          <div className="flex w-max animate-marquee items-center gap-3 whitespace-nowrap">
+            {[...formulationIngredients, ...formulationIngredients].map((item, i) => (
+              <span
+                key={`${item}-${i}`}
+                className="flex items-center gap-3 text-lg md:text-xl font-medium tracking-tight text-primary/70"
+              >
+                {item}
+                <span aria-hidden className="h-1 w-1 rounded-full bg-primary/40" />
+              </span>
+            ))}
+          </div>
         </motion.div>
       </ContainerLayout>
     </section>

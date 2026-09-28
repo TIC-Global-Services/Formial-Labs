@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { Star } from "lucide-react";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 import CustomerResultCard from "@/components/Reusable/CustomerResultCard";
 import { CustomerResults } from "@/components/Constants/CustomerResults";
@@ -73,7 +72,7 @@ const ResultGuarantee = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
-          className="rounded-3xl bg-[#B5CBC9] p-6 text-center shadow-xl sm:p-10 z-50"
+          className="rounded-3xl bg-[#B5CBC9] p-6 text-center shadow-xl 0 z-50"
         >
           <motion.div variants={itemVariants}>
             <motion.div
@@ -92,7 +91,7 @@ const ResultGuarantee = () => {
 
           <motion.h2
             variants={itemVariants}
-            className="mt-6 font-aeonik text-2xl leading-tight font-semibold text-primary sm:text-5xl"
+            className="mt-6 font-aeonik text-2xl tracking-tighter  font-semibold text-primary sm:text-5xl"
           >
             Results you can see, <br /> or Get Your Money Back
           </motion.h2>
@@ -107,11 +106,10 @@ const ResultGuarantee = () => {
                 type="button"
                 whileTap={{ scale: 0.94 }}
                 onClick={() => handleTypeChange(type)}
-                className={`cursor-pointer rounded-full  px-5 py-2 font-obviously text-xs font-bold uppercase tracking-wide transition-colors duration-200 ${
-                  activeType === type
+                className={`cursor-pointer rounded-full  px-5 py-2 font-obviously text-xs font-bold uppercase tracking-wide transition-colors duration-200 ${activeType === type
                     ? " bg-white text-primary"
                     : "border border-white/50 text-white hover:border-white"
-                }`}
+                  }`}
               >
                 {type}
               </motion.button>
@@ -148,9 +146,8 @@ const ResultGuarantee = () => {
                 {results.map((result, i) => (
                   <span
                     key={`${result.type}-${result.name}-dot`}
-                    className={`h-2 rounded-full bg-white transition-all duration-300 ${
-                      i === activeCard ? "w-6 opacity-100" : "w-2 opacity-40"
-                    }`}
+                    className={`h-2 rounded-full bg-white transition-all duration-300 ${i === activeCard ? "w-6 opacity-100" : "w-2 opacity-40"
+                      }`}
                   />
                 ))}
               </div>
@@ -159,7 +156,7 @@ const ResultGuarantee = () => {
 
           <motion.p
             variants={itemVariants}
-            className="mx-auto mt-8 max-w-4xl md:text-xl leading-tight text-white"
+            className="mx-auto mt-8 max-w-4xl md:text-xl leading-tight text-priamry"
           >
             We&apos;re committed to personalised, evidence-based skincare. If
             your skin isn&apos;t responding, we&apos;ll reformulate at no extra
@@ -176,15 +173,16 @@ const ResultGuarantee = () => {
           </motion.div>
 
           <motion.div variants={itemVariants} className="mt-6 flex flex-col items-center gap-2">
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} size={16} strokeWidth={0} className="fill-secondary" />
-              ))}
-            </div>
-            <p className="flex items-center gap-1.5 text-base leading-tight text-white">
-              10k+ Verified Reviews on
-              <Star size={14} strokeWidth={0} className="fill-[#00b67a]" />
-              <span className="font-semibold text-white">Trustpilot</span>
+            <Image
+              src="/assets/common/trustpilot_black.png"
+              alt="Trustpilot"
+              width={160}
+              height={32}
+              className="h-7 w-auto object-contain"
+            />
+            <p className="text-center text-base leading-tight font-medium text-primary">
+              4.7 Stars from Verified Reviews
+              That Speak for Themselves
             </p>
           </motion.div>
         </motion.div>
