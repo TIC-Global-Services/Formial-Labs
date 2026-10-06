@@ -4,7 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronsRight } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { preload } from "react-dom";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
+
+// Start fetching the model + decoder before the 3D chunk has even loaded
+const MODEL_ASSETS = [
+  "/models/bottle-model-draco.glb",
+  "/draco/draco_wasm_wrapper.js",
+  "/draco/draco_decoder.wasm",
+];
+
+const BottleModel = dynamic(() => import("./BottleModel"), { ssr: false });
 
 const AssessmentIntro = ({
   name,
@@ -12,13 +24,17 @@ const AssessmentIntro = ({
   agreed,
   onAgreedChange,
   onStart,
-}: {
+}: { 
   name: string;
   onNameChange: (value: string) => void;
   agreed: boolean;
   onAgreedChange: (value: boolean) => void;
   onStart: () => void;
 }) => {
+  const [modelReady, setModelReady] = useState(false);
+  MODEL_ASSETS.forEach((href) =>
+    preload(href, { as: "fetch", crossOrigin: "anonymous" }),
+  );
   const canStart = agreed && name.trim() !== "";
 
 
@@ -37,20 +53,25 @@ const AssessmentIntro = ({
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mx-auto mt-6 h-80 w-full max-w-md sm:h-70"
+        className="relative mx-auto mt-6 h-96 w-full max-w-md sm:h-[26rem]"
       >
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-0 flex items-center justify-center"
         >
+          {/* Static bottle shown until the 3D model is ready */}
           <Image
             src="/assets/home/formial-new-bottle-cropped.png"
             alt="Formial Labs"
-            width={356}
-            height={399}
+            width={316}
+            height={359}
             priority
-            className="h-full w-full object-contain drop-shadow-xl"
+            className={`absolute inset-0 h-full w-full object-contain drop-shadow-xl transition-opacity duration-500 ${modelReady ? "opacity-0" : "opacity-100"}`}
+          />
+          <BottleModel
+            className="h-full w-full"
+            onReady={() => setModelReady(true)}
           />
         </motion.div>
 

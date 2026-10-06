@@ -137,7 +137,7 @@ const ResultView = () => {
         answers={answers}
       />
       <ResultPlan answers={answers} />
-      <ResultIngredients />
+      <ResultIngredients answers={answers} />
       <ResultGuarantee />
       <ResultTeam />
       <ResultReviews />

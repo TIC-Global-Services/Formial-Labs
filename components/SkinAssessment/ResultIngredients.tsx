@@ -5,29 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
-
-const INGREDIENTS = [
-  {
-    name: "Prescription-Strength Retinoids",
-    desc: "Speeds up skin cell turnover to smooth texture, fade marks, and soften fine lines over time.",
-    image: "/assets/ingredient_placeholder.png",
-  },
-  {
-    name: "Niacinamide",
-    desc: "Calms inflammation, strengthens your skin barrier, and helps even out tone.",
-    image: "/assets/ingredient_placeholder.png",
-  },
-  {
-    name: "Clindamycin",
-    desc: "A targeted antibiotic that clears the bacteria behind active breakouts.",
-    image: "/assets/ingredient_placeholder.png",
-  },
-  {
-    name: "Possible Other Ingredients",
-    desc: "Your dermatologist may add further actives based on your specific assessment.",
-    image: "/assets/ingredient_placeholder.png",
-  },
-];
+import { AssessmentAnswers, getFormulationDetails } from "./assessmentData";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -39,7 +17,8 @@ const itemVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
 
-const ResultIngredients = () => {
+const ResultIngredients = ({ answers }: { answers: AssessmentAnswers }) => {
+  const ingredients = getFormulationDetails(answers);
   const [activeCard, setActiveCard] = useState(0);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -102,7 +81,7 @@ const ResultIngredients = () => {
               onScroll={handleScroll}
               className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-none sm:hidden"
             >
-              {INGREDIENTS.map((item, i) => (
+              {ingredients.map((item, i) => (
                 <div
                   key={item.name}
                   ref={(el) => {
@@ -128,7 +107,7 @@ const ResultIngredients = () => {
             </div>
 
             <div className="mt-5 flex items-center justify-center gap-2 sm:hidden">
-              {INGREDIENTS.map((item, i) => (
+              {ingredients.map((item, i) => (
                 <span
                   key={`${item.name}-dot`}
                   className={`h-2 rounded-full bg-primary transition-all duration-300 ${i === activeCard ? "w-8 opacity-100" : "w-4 opacity-30"
@@ -142,7 +121,7 @@ const ResultIngredients = () => {
               <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-[#B5CBC9] to-transparent" />
               <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-[#B5CBC9] to-transparent" />
               <div className="flex w-max animate-marquee gap-4">
-                {[...INGREDIENTS, ...INGREDIENTS].map((item, i) => (
+                {[...ingredients, ...ingredients].map((item, i) => (
                   <div
                     key={`${item.name}-${i}`}
                     className="w-100 shrink-0 rounded-2xl bg-white p-6 text-left"

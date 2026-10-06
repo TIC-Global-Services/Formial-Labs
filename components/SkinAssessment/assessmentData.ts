@@ -195,3 +195,27 @@ export const getFormulationIngredients = (answers: AssessmentAnswers): string[] 
   const concerns = new Set([...answers.concerns, ...answers.otherConcerns]);
   return FORMULATION_COMBOS.find((combo) => combo.matches(concerns))?.ingredients ?? DEFAULT_FORMULATION;
 };
+
+const INGREDIENT_DETAILS: Record<string, string> = {
+  "Prescription retinoids":
+    "Speeds up skin cell turnover to smooth texture, fade marks, and soften fine lines over time.",
+  "Azelaic acid": "Calms redness and inflammation while gently fading dark marks and evening out tone.",
+  Niacinamide: "Strengthens your skin barrier, calms inflammation, and helps even out tone.",
+  Clindamycin: "A targeted antibiotic that clears the bacteria behind active breakouts.",
+  "Tranexamic acid": "Targets excess pigment production to fade stubborn dark spots and discoloration.",
+  "Kojic acid": "A natural brightening agent that helps lighten dark spots and even out skin tone.",
+  "Centella asiatica": "Soothes and repairs the skin barrier while calming irritation.",
+  Hydroquinone:
+    "A potent skin-lightening agent, used at a dermatologist-set strength to fade deep pigmentation like melasma.",
+};
+
+export type FormulationIngredient = { name: string; desc: string; image: string };
+
+/** The active ingredients for a customer's formula, with copy — what
+ * ResultIngredients shows under "What's In Your Formula?". */
+export const getFormulationDetails = (answers: AssessmentAnswers): FormulationIngredient[] =>
+  getFormulationIngredients(answers).map((name) => ({
+    name,
+    desc: INGREDIENT_DETAILS[name] ?? "Your dermatologist may add this based on your specific assessment.",
+    image: "/assets/ingredient_placeholder.png",
+  }));

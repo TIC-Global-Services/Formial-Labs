@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { CheckCheck, ChevronsRight, Share2 } from "lucide-react";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 import { AssessmentAnswers, getFormulationIngredients, PLAN } from "./assessmentData";
+
+const BottleModel = dynamic(() => import("./BottleModel"), { ssr: false });
 
 const ResultHero = ({
   firstName,
@@ -17,6 +21,7 @@ const ResultHero = ({
   onShare: () => void;
   answers: AssessmentAnswers;
 }) => {
+  const [modelReady, setModelReady] = useState(false);
   const formulationIngredients = getFormulationIngredients(answers);
   return (
     <section className=" min-h-screen bg-brand-gradient flex items-center justify-center py-16 lg:py-24 px-4">
@@ -65,16 +70,22 @@ const ResultHero = ({
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="mx-auto mt-10 flex h-56 items-center justify-center sm:h-72 relative"
+          className="relative mx-auto mt-10 h-72 w-full max-w-xs sm:h-96"
         >
+          {/* Static bottle shown until the 3D model is ready */}
           <Image
             src={PLAN.image}
             alt={PLAN.name}
             width={220}
             height={330}
-            className="h-full w-auto -rotate-12 object-contain drop-shadow-xl"
+            className={`absolute inset-0 h-full w-full -rotate-12 object-contain drop-shadow-xl transition-opacity duration-500 ${modelReady ? "opacity-0" : "opacity-100"}`}
           />
-         
+          <BottleModel
+            className="h-full w-full"
+            name={answers.firstName}
+            ingredients={formulationIngredients}
+            onReady={() => setModelReady(true)}
+          />
         </motion.div>
 
         <motion.div
