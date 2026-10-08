@@ -1,10 +1,12 @@
 "use client";
 
-import { Suspense, useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   CanvasTexture,
   Color,
+  DoubleSide,
+  FrontSide,
   PerspectiveCamera,
   type Texture,
   Mesh,
@@ -45,16 +47,26 @@ const POSITION = {
   rotation: [15, 10, 10] as Vec3, // degrees
 };
 
+// Glass material settings
 const GLASS = {
-  color: "#939598",
-  opacity: 0.07,
-  roughness: 0.14,
-  metalness: 0.92,
-  envMapIntensity: 3.39,
+  color: "#fafcff",
+  opacity: 0.12,
+  roughness: 0.2,
+  metalness: 1,
+  envMapIntensity: 8.72,
   transmission: 1,
-  ior: 2.1,
-  thickness: 4.23,
+  ior: 1.12,
+  thickness: 6.62,
+  attenuationColor: "#ffffff",
+  attenuationDistance: 100,
+  clearcoat: 0.2,
+  clearcoatRoughness: 0,
+  specularIntensity: 1,
+  reflectivity: 0.5,
+  iridescence: 0.44,
+  sheen: 0,
   depthWrite: true,
+  doubleSided: true,
 };
 
 const CAP = {
@@ -114,12 +126,19 @@ const INGREDIENTS_TEXT = {
 const Bottle = ({
   onReady,
   name,
-  ingredients,
+  ingredients: ingredientsProp,
 }: {
   onReady: () => void;
   name?: string;
   ingredients?: string[];
 }) => {
+  // Callers often pass a fresh array each render; key on content so the label
+  // texture is only repainted when the ingredients actually change.
+  const ingredientsKey = ingredientsProp?.join("|") ?? "";
+  const ingredients = useMemo(
+    () => (ingredientsKey ? ingredientsKey.split("|") : []),
+    [ingredientsKey],
+  );
   const { scene } = useGLTF(MODEL_URL, DRACO_URL);
   const maxAnisotropy = useThree((s) => s.gl.capabilities.getMaxAnisotropy());
 
@@ -162,7 +181,16 @@ const Bottle = ({
           mat.transmission = GLASS.transmission;
           mat.ior = GLASS.ior;
           mat.thickness = GLASS.thickness;
-          mat.transparent = true;
+          mat.attenuationColor = new Color(GLASS.attenuationColor);
+          mat.attenuationDistance = GLASS.attenuationDistance;
+          mat.clearcoat = GLASS.clearcoat;
+          mat.clearcoatRoughness = GLASS.clearcoatRoughness;
+          mat.specularIntensity = GLASS.specularIntensity;
+          mat.reflectivity = GLASS.reflectivity;
+          mat.iridescence = GLASS.iridescence;
+          mat.sheen = GLASS.sheen;
+          mat.side = GLASS.doubleSided ? DoubleSide : FrontSide;
+          mat.transparent = GLASS.opacity < 1;
           mat.opacity = GLASS.opacity;
         } else if (role === "cap") {
           mat.color = new Color(CAP.color);
@@ -205,7 +233,7 @@ const Bottle = ({
         };
 
         const text = name?.trim();
-        if (!text && !ingredients?.length) {
+        if (!text && !ingredients.length) {
           mat.map = base.map;
           mat.emissiveMap = base.emissiveMap;
           mat.needsUpdate = true;
@@ -240,7 +268,7 @@ const Bottle = ({
         if (text) {
           drawFit(text, NAME_TEXT.x, NAME_TEXT.y, NAME_TEXT.size, NAME_TEXT.maxWidth);
         }
-        if (ingredients?.length) {
+        if (ingredients.length) {
           const shown = ingredients.slice(0, INGREDIENTS_TEXT.count);
           const lines = shown.map((item, i) =>
             i === shown.length - 1 && ingredients.length > shown.length

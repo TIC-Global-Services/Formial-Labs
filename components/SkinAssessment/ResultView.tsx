@@ -22,51 +22,43 @@ const ResultView = () => {
   useEffect(() => {
     // sessionStorage and the URL are both browser-only, unavailable during
     // SSR, so this can only be read after mount.
-    const raw = sessionStorage.getItem("formial_assessment");
-    if (raw) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setAnswers(JSON.parse(raw) as AssessmentAnswers);
-      setLoading(false);
-      return;
-    }
-
-    // No session on this device — this is likely a link someone shared.
     const params = new URLSearchParams(window.location.search);
     const submissionId = params.get("submissionId");
     const name = params.get("name");
     const concern = params.get("concern");
 
-    // Lightweight, read-only view rebuilt from the URL alone.
-    const fromUrl = () => {
-      if (!name) return;
-      setAnswers({
-        ...emptyAnswers,
-        firstName: name,
-        concerns: concern ? [concern] : [],
-      });
+    const fromSession = (): AssessmentAnswers | null => {
+      try {
+        const raw = sessionStorage.getItem("formial_assessment");
+        return raw ? ({ ...emptyAnswers, ...JSON.parse(raw) } as AssessmentAnswers) : null;
+      } catch {
+        return null;
+      }
     };
 
+    // Lightweight, read-only view rebuilt from the URL alone.
+    const fromUrl = (): AssessmentAnswers | null =>
+      name
+        ? { ...emptyAnswers, firstName: name, concerns: concern ? [concern] : [] }
+        : null;
+
+    // A submissionId in the link is the source of truth, so a stale session on
+    // this device can't override it. Session/URL only back it up on failure.
     if (!submissionId) {
-      fromUrl();
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setAnswers(fromSession() ?? fromUrl());
       setLoading(false);
       return;
     }
 
     let cancelled = false;
     fetchAssessment(submissionId)
-      .then((data) => {
+      .then((data) => (data ? { ...emptyAnswers, ...data } : null))
+      .catch(() => null)
+      .then((fetched) => {
         if (cancelled) return;
-        if (data) {
-          setAnswers({ ...emptyAnswers, ...data });
-        } else {
-          fromUrl();
-        }
-      })
-      .catch(() => {
-        if (!cancelled) fromUrl();
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
+        setAnswers(fetched ?? fromSession() ?? fromUrl());
+        setLoading(false);
       });
     return () => {
       cancelled = true;

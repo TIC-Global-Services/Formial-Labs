@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronsRight } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { preload } from "react-dom";
 import ContainerLayout from "@/components/Reusable/ContainerLayout";
 
@@ -35,6 +35,7 @@ const AssessmentIntro = ({
   MODEL_ASSETS.forEach((href) =>
     preload(href, { as: "fetch", crossOrigin: "anonymous" }),
   );
+  const labelName = useDeferredValue(name);
   const canStart = agreed && name.trim() !== "";
 
 
@@ -71,6 +72,7 @@ const AssessmentIntro = ({
           />
           <BottleModel
             className="h-full w-full"
+            name={labelName}
             onReady={() => setModelReady(true)}
           />
         </motion.div>

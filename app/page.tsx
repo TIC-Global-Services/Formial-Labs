@@ -4,6 +4,7 @@ import HowItWorks from "@/components/Home/HowItWorks";
 import MedicalExpertise from "@/components/Home/MedicalExpertise";
 import PersonalisedExperience from "@/components/Home/PersonalisedExperience";
 import PoweredByEvidence from "@/components/Home/PoweredByEvidence";
+import ScrollSequence from "@/components/Home/ScrollSequence";
 import SkinTransformationGallery from "@/components/Home/SkinTransformationGallery";
 import { buildMetadata } from "@/lib/seo";
 
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      <ScrollSequence />
       <CustomerReviews />
       <HowItWorks />
       <PersonalisedExperience />

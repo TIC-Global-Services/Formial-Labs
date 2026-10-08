@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -22,7 +22,7 @@ const ResultHero = ({
   answers: AssessmentAnswers;
 }) => {
   const [modelReady, setModelReady] = useState(false);
-  const formulationIngredients = getFormulationIngredients(answers);
+  const formulationIngredients = useMemo(() => getFormulationIngredients(answers), [answers]);
   return (
     <section className=" min-h-screen bg-brand-gradient flex items-center justify-center py-16 lg:py-24 px-4">
       <ContainerLayout px py={false} className="mx-auto w-full min-w-0 max-w-4xl text-center">
@@ -82,7 +82,7 @@ const ResultHero = ({
           />
           <BottleModel
             className="h-full w-full"
-            name={answers.firstName}
+            name={firstName === "there" ? "" : firstName}
             ingredients={formulationIngredients}
             onReady={() => setModelReady(true)}
           />
