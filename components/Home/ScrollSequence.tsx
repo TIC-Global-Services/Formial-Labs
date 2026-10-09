@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 400;
 const FRAME_START = 10001;
-const frameSrc = (i: number) => `/sequence/${FRAME_START + i}.webp`;
+const frameSrc = (i: number) => `/new-seq/${FRAME_START + i}.webp`;
 
 const BADGES = [
     { label: "Precise", icon: "precise", className: "left-[44%] top-[19%]", from: { x: 0, y: 30 } },

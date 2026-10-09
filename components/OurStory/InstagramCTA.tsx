@@ -31,7 +31,7 @@ const imageVariants: Variants = {
 
 const InstagramCTA = () => {
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-white pb-10 lg:py-28">
       <ContainerLayout>
         <motion.div
           initial="hidden"
@@ -89,7 +89,7 @@ const InstagramCTA = () => {
                 href="https://www.instagram.com/formiallabs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-block rounded-full border-t border-b border-white/80 bg-white/10 px-8 py-3 font-obviously text-sm font-bold tracking-wide text-primary uppercase backdrop-blur-md shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.25)] transition-colors duration-300 hover:bg-white/20"
+                className="mt-6 inline-block rounded-full border-t border-b border-white/80 bg-white/10 px-8 py-3 font-obviously text-sm  font-medium text-primary uppercase backdrop-blur-md shadow-[inset_-1px_-1px_4px_0_rgba(0,0,0,0.25)] transition-colors duration-300 hover:bg-white/20"
               >
                 Follow Us Now
               </Link>

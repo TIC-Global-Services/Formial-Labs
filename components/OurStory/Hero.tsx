@@ -33,11 +33,12 @@ const Hero = () => {
       >
         <motion.h1
           variants={itemVariants}
-          className="absolute top-[14%] left-8 z-0 max-w-xl font-aeonik text-5xl leading-[0.95] tracking-tighter text-primary xl:left-16 xl:max-w-2xl xl:text-7xl 2xl:text-8xl"
+          className="absolute top-[14%] left-8 z-0 max-w-xl font-aeonik text-5xl leading-[0.95] tracking-tighter text-primary xl:left-16 xl:max-w-3xl xl:text-6xl"
         >
-          We See What
+          We See What Your Skin Needs
+
           <br />
-          Your Skin Needs
+          Before We Suggest
         </motion.h1>
 
         <motion.div
@@ -45,12 +46,12 @@ const Hero = () => {
           className="absolute bottom-0 left-1/2 z-10 h-[92%] w-[46%] -translate-x-1/2 xl:w-[44%]"
         >
           <Image
-            src="/assets/our-story/model2.png"
+            src="/assets/our-story/magnificient_model.png"
             alt="Model with eyes closed, touching her face"
             fill
             priority
             sizes="(min-width: 1024px) 38vw"
-            className="object-cover object-center [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+            className="object-contain object-center [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white to-transparent" />
         </motion.div>
@@ -71,11 +72,10 @@ const Hero = () => {
       >
         <motion.h1
           variants={itemVariants}
-          className="px-6 font-aeonik text-5xl leading-tight tracking-tighter text-primary sm:text-6xl pt-10"
+          className="px-6 font-aeonik text-4xl leading-tight tracking-tighter text-primary sm:text-6xl pt-10"
         >
-          We See What
-          <br />
-          Your Skin Needs
+         We See What Your Skin Needs
+          Before We Suggest
         </motion.h1>
 
         <motion.p
@@ -90,12 +90,12 @@ const Hero = () => {
           className="absolute inset-x-0 bottom-0 z-0 h-[65%] w-full sm:h-[70%]"
         >
           <Image
-            src="/assets/our-story/model2.png"
+            src="/assets/our-story/magnificient_model.png"
             alt="Model with eyes closed, touching her face"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-contain object-center"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#e6e6e6] to-transparent" />
         </motion.div>

@@ -4,30 +4,54 @@ import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import ContainerLayout from "../Reusable/ContainerLayout";
 
-const PointIcon = ({ className = "" }: { className?: string }) => (
+const CrossIcon = ({ className = "" }: { className?: string }) => (
   <svg
-    width="18"
-    height="18"
-    viewBox="0 0 23 23"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={`shrink-0 ${className}`}
   >
+    <circle cx="10" cy="10" r="9.25" stroke="currentColor" strokeWidth="1.5" />
     <path
-      d="M15.835 9.98601C14.2762 11.5448 11.6034 11.3966 11.6034 11.3966C11.6034 11.3966 11.4552 8.71922 13.0139 7.16043C14.5727 5.60164 17.2501 5.74988 17.2501 5.74988C17.2501 5.74988 17.3938 8.42722 15.835 9.98601Z"
+      d="M6.75 6.75L13.25 13.25M13.25 6.75L6.75 13.25"
       stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const TickIcon = ({
+  className = "",
+  filled = false,
+}: {
+  className?: string;
+  filled?: boolean;
+}) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`shrink-0 ${className}`}
+  >
+    <circle
+      cx="10"
+      cy="10"
+      r="9.25"
+      fill={filled ? "currentColor" : "white"}
+      stroke={filled ? "currentColor" : "white"}
+      strokeWidth="1.5"
     />
     <path
-      d="M9.98601 7.16504C11.5448 8.72383 11.3966 11.4012 11.3966 11.4012C11.3966 11.4012 8.72371 11.5494 7.16043 9.99062C5.60164 8.43184 5.74988 5.75898 5.74988 5.75898C5.74988 5.75898 8.42722 5.60625 9.98601 7.16504Z"
-      stroke="currentColor"
-    />
-    <path
-      d="M7.16462 13.0139C8.72341 11.4552 11.3963 11.6034 11.3963 11.6034C11.3963 11.6034 11.5445 14.2807 9.98571 15.8395C8.42692 17.3983 5.74958 17.2501 5.74958 17.2501C5.74958 17.2501 5.60583 14.5727 7.16462 13.0139Z"
-      stroke="currentColor"
-    />
-    <path
-      d="M13.01 15.8346C11.4512 14.2759 11.5995 11.5985 11.5995 11.5985C11.5995 11.5985 14.2768 11.4503 15.8356 13.0091C17.3944 14.5678 17.2462 17.2452 17.2462 17.2452C17.2462 17.2452 14.5733 17.3934 13.01 15.8346Z"
-      stroke="currentColor"
+      d="M6 10.25L8.75 13L14 7.5"
+      stroke={filled ? "white" : "currentColor"}
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -85,7 +109,7 @@ const bottleVariants: Variants = {
 
 const SkincareComparison = () => {
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-white py-10 lg:py-28">
       <ContainerLayout>
         <motion.h2
           initial="hidden"
@@ -125,7 +149,7 @@ const SkincareComparison = () => {
                   variants={rowVariants}
                   className="flex items-start gap-3 text-2xl text-primary"
                 >
-                  <PointIcon className="mt-1.5 text-primary" />
+                  <CrossIcon className="mt-1.5 text-primary" />
                   {item}
                 </motion.li>
               ))}
@@ -160,7 +184,7 @@ const SkincareComparison = () => {
                   variants={rowVariants}
                   className="flex items-start gap-3 text-2xl text-white"
                 >
-                  <PointIcon className="mt-1.5 text-white" />
+                  <TickIcon className="mt-1.5 text-primary" />
                   {item}
                 </motion.li>
               ))}
@@ -193,10 +217,10 @@ const SkincareComparison = () => {
           className="mt-12 rounded-3xl bg-gradient-to-br from-[#7A9490] to-[#E6E6E6] p-4 sm:p-6 lg:hidden"
         >
           <div className="grid grid-cols-2 gap-3">
-            <h3 className="font-obviously text-xs font-bold tracking-wide text-primary sm:text-sm">
+            <h3 className="text-center font-obviously text-xs font-bold tracking-wide text-primary sm:text-sm">
               GENERIC SKINCARE
             </h3>
-            <h3 className="font-obviously text-xs font-bold tracking-widest text-primary sm:text-sm">
+            <h3 className="text-center font-obviously text-xs font-bold tracking-widest text-primary sm:text-sm">
               FORMIAL&#8212;LABS
             </h3>
           </div>
@@ -208,7 +232,7 @@ const SkincareComparison = () => {
                   variants={rowVariants}
                   className="rounded-2xl bg-white p-4 shadow-sm"
                 >
-                  <PointIcon className="text-primary" />
+                  <CrossIcon className="text-primary" />
                   <p className="mt-2 text-sm leading-snug text-primary">
                     {item}
                   </p>
@@ -217,7 +241,7 @@ const SkincareComparison = () => {
                   variants={rowVariants}
                   className="rounded-2xl bg-white p-4 shadow-sm"
                 >
-                  <PointIcon className="text-primary" />
+                  <TickIcon filled className="text-primary" />
                   <p className="mt-2 text-sm leading-snug text-primary">
                     {formialItems[index]}
                   </p>

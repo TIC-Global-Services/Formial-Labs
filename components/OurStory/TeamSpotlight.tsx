@@ -120,17 +120,15 @@ const TeamSpotlight = () => {
           variants={headingVariants}
           className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-start md:justify-between lg:text-left mx-auto"
         >
-          <h2 className="font-aeonik text-4xl leading-tight tracking-tighter  text-primary sm:text-5xl">
-            The Visionaries
+          <h2 className="font-aeonik text-4xl leading-tight tracking-tighter  text-primary 2xl:text-6xl">
+            Our Dermatology &
             <br />
-            Behind Our Team
+            Clinical Panel
           </h2>
 
-          <div className="max-w-2xl lg:text-right">
-            <p className="text-base leading-tight text-black sm:text-lg">
-              Behind our mission is a whole team of Derma-Coaches,
-              dermatologists, lab experts and researchers armed with degrees and
-              a slightly obsessive commitment to results.
+          <div className="max-w-3xl lg:text-right">
+            <p className="text-base leading-tight text-black sm:text-xl">
+              Dermatologists, care managers, pharmacists, lab experts, and researchers — backed by expertise, qualifications, and an unwavering commitment to better results
             </p>
             <Link
               href="/solutions"
@@ -139,7 +137,7 @@ const TeamSpotlight = () => {
               Let&rsquo;s Start With A DocTalk
             </Link>
           </div>
-        </motion.div> 
+        </motion.div>
 
         <div className="relative mt-16 lg:mt-20">
           <AnimatePresence mode="wait" custom={direction}>
@@ -235,11 +233,10 @@ const TeamSpotlight = () => {
                   type="button"
                   aria-label={`Go to doctor ${index + 1}`}
                   onClick={() => goTo(index)}
-                  className={`h-2 rounded-full bg-primary transition-all duration-300 ${
-                    index === activeIndex
+                  className={`h-2 rounded-full bg-primary transition-all duration-300 ${index === activeIndex
                       ? "w-10 opacity-100"
                       : "w-4 opacity-30"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

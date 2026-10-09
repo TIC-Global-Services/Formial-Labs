@@ -68,24 +68,24 @@ const Footer = () => {
         </ContainerLayout>
       </div>
 
-      <ContainerLayout pt={false} >
+      <ContainerLayout pt={false} px={false} className="lg:pb-0">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
           variants={gridVariants}
-          className={`grid grid-cols-2  gap-y-10 border-t ${borderColor} ${textMain} text-center sm:text-left sm:gap-x-8 lg:grid-cols-4 lg:gap-6 py-6`}
+          className={`grid grid-cols-2  gap-y-10 border-t ${borderColor} ${textMain} text-center sm:text-left sm:gap-x-8 lg:grid-cols-4 lg:gap-0 py-6 px-10 lg:py-0`}
         >
           {/* Features */}
           <motion.div
             variants={columnVariants}
-            className={`order-1 border-b border-r ${borderColor} pb-6 pr-6 lg:order-0 lg:col-start-2 lg:row-start-1 lg:border-0 lg:pb-0 lg:pr-0`}
+            className={`order-1 border-b border-r ${borderColor} pb-6 pr-6 lg:order-0 lg:col-start-2 lg:row-start-1 lg:border-b-0 lg:px-6 lg:py-6`}
           >
-            <h3 className={`mb-4 font-obviously text-lg uppercase tracking-wide ${featurePolicyText}`}>
+            <h3 className={`mb-4 font-obviously text-lg font-medium uppercase tracking-wide ${featurePolicyText}`}>
               Features
             </h3>
             <div className="flex flex-col items-center gap-2 sm:items-start sm:gap-6 md:flex-row md:gap-10">
-              <ul className={`space-y-2 ${featurePolicyText}`}>
+              <ul className={`space-y-1 leading-tight ${featurePolicyText}`}>
                 {FooterLinks.Features.slice(0, 3).map((link) => (
                   <li key={link.name}>
                     <Link href={link.href} className="transition-opacity hover:opacity-70">
@@ -94,7 +94,7 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-              <ul className={`space-y-2 ${featurePolicyText}`}>
+              <ul className={`space-y-1 leading-tight ${featurePolicyText}`}>
                 {FooterLinks.Features.slice(3).map((link) => (
                   <li key={link.name}>
                     <Link href={link.href} className="transition-opacity hover:opacity-70">
@@ -109,13 +109,13 @@ const Footer = () => {
           {/* Policies */}
           <motion.div
             variants={columnVariants}
-            className={`order-2 border-b ${borderColor} pb-6 pl-6 lg:order-0 lg:col-start-4 lg:row-start-1 lg:border-0 lg:pb-0 lg:pl-0`}
+            className={`order-2 border-b ${borderColor} pb-6 pl-6 lg:order-0 lg:col-start-4 lg:row-start-1 lg:border-b-0 lg:py-6 lg:pl-6 lg:pr-0`}
           >
-            <h3 className={`mb-4 font-obviously text-lg uppercase tracking-wide ${featurePolicyText}`}>
+            <h3 className={`mb-4 font-obviously text-lg font-medium uppercase tracking-wide ${featurePolicyText}`}>
               Policies
             </h3>
             <div className="flex flex-col items-center gap-2 sm:items-start sm:gap-6 md:flex-row md:gap-10">
-              <ul className={`space-y-2 ${featurePolicyText}`}>
+              <ul className={`space-y-1 leading-tight ${featurePolicyText}`}>
                 {FooterLinks.Policies.slice(0, 3).map((link) => (
                   <li key={link.name}>
                     <Link href={link.href} className="transition-opacity hover:opacity-70">
@@ -124,7 +124,7 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-              <ul className={`space-y-2 ${featurePolicyText}`}>
+              <ul className={`space-y-1 leading-tight ${featurePolicyText}`}>
                 {FooterLinks.Policies.slice(3).map((link) => (
                   <li key={link.name}>
                     <Link href={link.href} className="transition-opacity hover:opacity-70">
@@ -139,9 +139,9 @@ const Footer = () => {
           {/* Connect */}
           <motion.div
             variants={columnVariants}
-            className="order-3 col-span-2 sm:col-span-1 lg:order-0 lg:col-start-3 lg:row-start-1"
+            className={`order-3 col-span-2 sm:col-span-1 lg:order-0 lg:col-start-3 lg:row-start-1 lg:border-r ${borderColor} lg:px-6 lg:py-6`}
           >
-            <h3 className="mb-4 font-obviously text-lg uppercase tracking-wide">
+            <h3 className="mb-4 font-obviously text-lg font-medium uppercase tracking-wide">
               Connect
             </h3>
             <p className={`mb-4 ${textMuted}`}>
@@ -176,7 +176,7 @@ const Footer = () => {
           {/* Tagline / Copyright / Designed by */}
           <motion.div
             variants={columnVariants}
-            className="order-4 col-span-2 flex flex-col items-center gap-4 sm:col-span-1 sm:items-start lg:order-0 lg:col-start-1"
+            className={`order-4 col-span-2 flex flex-col items-center gap-4 sm:col-span-1 sm:items-start lg:order-0 lg:col-start-1 lg:border-r ${borderColor} lg:py-6 lg:pr-6`}
           >
             <p className={`order-1 sm:order-2 text-lg leading-relaxed ${textMain}`}>
               India&apos;s first

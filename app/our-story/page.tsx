@@ -17,7 +17,6 @@ export default function OurStoryPage() {
     <div>
       <Hero />
       <InnovativeFormula />
-      <GlobalExpertise />
       <TeamSpotlight />
       <SkincareComparison />
       <InstagramCTA />
