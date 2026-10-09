@@ -19,6 +19,12 @@ const BADGES = [
     { label: "Expert", icon: "expert", className: "left-[30%] top-[74%]", from: { x: -40, y: -20 } },
 ];
 
+const COPY_SETS = [
+    ["Made only for you", "pH balanced", "Proprietary technology", "Gold standard ingredients"],
+    ["Precision delivered", "Medical-grade", "Evidence-based"],
+    ["World-class", "Advanced science", "Innovative formulations"],
+];
+
 const ScrollSequence = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
@@ -99,6 +105,27 @@ const ScrollSequence = () => {
             tl.to(canvas, { opacity: 1, duration: 0.6 }, 3.4);
             tl.to(state, { frame: FRAME_COUNT - 1, duration: 10, onUpdate: () => draw() }, 4);
 
+            // top-left copy sets: lines stagger in, hold, then lift out
+            COPY_SETS.forEach((_, s) => {
+                const lines = gsap.utils.toArray<HTMLElement>(`.seq-set-${s} .seq-line`);
+                const t = 4.3 + s * 3.2;
+                tl.fromTo(
+                    lines,
+                    { opacity: 0, y: 28 },
+                    { opacity: 1, y: 0, ease: "power2.out", duration: 0.6, stagger: 0.2 },
+                    t,
+                );
+                tl.to(lines, { opacity: 0, y: -28, ease: "power2.in", duration: 0.5, stagger: 0.08 }, t + 2.3);
+            });
+
+            // bottom-right note: appears with first set, stays to the end
+            tl.fromTo(
+                ".seq-note",
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, ease: "power2.out", duration: 0.8 },
+                4.5,
+            );
+
             // cursor parallax: each badge drifts by its own depth
             const floats = floatRefs.current.filter(Boolean) as HTMLDivElement[];
             const movers = floats.map((el, i) => {
@@ -168,6 +195,26 @@ const ScrollSequence = () => {
                 ))}
             </div>
             <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+            <div className="pointer-events-none absolute left-6 top-24 md:left-16 md:top-32">
+                {COPY_SETS.map((lines, s) => (
+                    <ul key={s} className={`seq-set-${s} absolute left-0 top-0 whitespace-nowrap`}>
+                        {lines.map((line) => (
+                            <li
+                                key={line}
+                                className="seq-line text-primary text-3xl leading-tight tracking-tighter opacity-0 md:text-5xl"
+                            >
+                                {line}
+                            </li>
+                        ))}
+                    </ul>
+                ))}
+            </div>
+            <div className="seq-note pointer-events-none absolute bottom-8 right-6 max-w-sm text-right opacity-0 md:bottom-14 md:right-16 md:max-w-lg">
+                <h3 className="text-primary text-2xl tracking-tighter md:text-4xl">Advanced Airless System</h3>
+                <p className="mt-2 text-base leading-tight tracking-tight md:text-xl">
+                    Twist the pump head or remove the safety lock before first use to activate the dispenser.
+                </p>
+            </div>
         </div>
     );
 };
