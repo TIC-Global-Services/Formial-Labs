@@ -32,7 +32,7 @@ const ContainerLayout = <T extends ElementType = "div">({
   pr = true,
   ...rest
 }: ContainerLayoutProps<T>) => {
-  const Component = as || "div";
+  const Component = (as || "div") as ElementType<Record<string, unknown>>;
 
   const paddingClasses = padding
     ? [
